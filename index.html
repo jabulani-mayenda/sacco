@@ -399,7 +399,6 @@
             position: relative;
             overflow: hidden;
             text-align: center;
-            color: var(--white);
             height: 300px; /* Fixed height for consistency */
             display: flex;
             flex-direction: column;
@@ -421,18 +420,20 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            opacity: 0.7;
+            opacity: 0.5; /* Reduced opacity for better text visibility */
             z-index: 0;
             transition: opacity 0.3s ease;
         }
 
         .overview-card:hover::before {
-            opacity: 0.85;
+            opacity: 0.65; /* Slightly increase opacity on hover */
         }
         
         .overview-card > * {
             position: relative;
             z-index: 1;
+            color: var(--white); /* Ensure text is always white */
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Add slight shadow for readability */
             transition: transform 0.3s ease;
         }
 
@@ -449,21 +450,21 @@
         }
         
         .overview-card:nth-child(3)::before {
-            background-image: url('https://images.unsplash.com/photo-1581093571427-4e5d7a38639c?auto=format&fit=crop&w=800');
+            background-image: url('images/youth.jpg');
         }
         
         .overview-card:nth-child(4)::before {
-            background-image: url('https://images.unsplash.com/photo-1504868584819-f75f95fd2c51?auto=format&fit=crop&w=800');
+            background-image: url('images/women.jpeg');
         }
         
         .overview-card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
-            color: var(--white);
+            color: var(--white); /* Explicitly set to white */
         }
         
         .overview-card p {
-            color: var(--white);
+            color: var(--white); /* Explicitly set to white */
         }
         
         /* FAQ Section */
@@ -1313,35 +1314,44 @@
 
     <!-- SACCO Overview Section -->
     <section class="sacco-overview" id="sacco-overview">
-        <div class="container">
-            <div class="section-title">
-                <h2>About SACCOs in Malawi</h2>
-                <p>An overview of Savings and Credit Cooperatives, how they work, and common information</p>
+    <div class="container">
+        <div class="section-title" style="color:black; animation: fadeIn 1s ease forwards;">
+            <h2 style="color:black; animation: fadeIn 1s ease forwards;">About SACCOs in Malawi</h2>
+            <p style="color:black; animation: fadeIn 1s ease forwards;">An overview of Savings and Credit Cooperatives, how they work, and common information</p>
+        </div>
+        
+        <div class="sacco-overview-grid">
+            <div class="overview-card" style="animation: fadeIn 1s ease forwards;">
+                <h3 style="color:black; animation: fadeIn 1s ease forwards;">History and Overview</h3>
+                <p style="color:black; animation: fadeIn 1s ease forwards;">SACCOs were introduced in Malawi in the 1970s by the Catholic Clergy. They are member-owned financial cooperatives affiliated with the Malawi Union of Savings and Credit Cooperatives (MUSCCO). Mudi SACCO, established in 1990 and rebranded in 2000, is a key player with over 21,000 members.</p>
             </div>
             
-            <div class="sacco-overview-grid">
-                <div class="overview-card animate-fadeIn">
-                    <h3>History and Overview</h3>
-                    <p>SACCOs were introduced in Malawi in the 1970s by the Catholic Clergy. They are member-owned financial cooperatives affiliated with the Malawi Union of Savings and Credit Cooperatives (MUSCCO). Mudi SACCO, established in 1990 and rebranded in 2000, is a key player with over 21,000 members.</p>
-                </div>
-                
-                <div class="overview-card animate-fadeIn">
-                    <h3>How SACCOs Work</h3>
-                    <p>Members pool savings to provide low-interest loans and dividends. They promote financial inclusion, especially for salaried and non-salaried individuals. Benefits include affordable credit, financial literacy, and community development.</p>
-                </div>
-                
-                <div class="overview-card animate-fadeIn">
-                    <h3>Application Process</h3>
-                    <p>To join, fill out an application form, provide ID, phone, and address. Pay an entry fee (varies by SACCO). For loans, submit a business plan or purpose, and await committee approval. Contact your local branch or use our chatbot for details.</p>
-                </div>
-                
-                <div class="overview-card animate-fadeIn">
-                    <h3>Common Issues & Solutions</h3>
-                    <p>Challenges include loan defaults, inadequate capital, governance issues, and manual systems. If money is stuck (e.g., delayed withdrawal), contact your branch manager or MUSCCO. For cybersecurity or data protection, use secure channels and report suspicious activity.</p>
-                </div>
+            <div class="overview-card" style="animation: fadeIn 1s ease forwards;">
+                <h3 style="color:black; animation: fadeIn 1s ease forwards;">How SACCOs Work</h3>
+                <p style="color:black; animation: fadeIn 1s ease forwards;">Members pool savings to provide low-interest loans and dividends. They promote financial inclusion, especially for salaried and non-salaried individuals. Benefits include affordable credit, financial literacy, and community development.</p>
+            </div>
+            
+            <div class="overview-card" style="animation: fadeIn 1s ease forwards;">
+                <h3 style="color:black; animation: fadeIn 1s ease forwards;">Application Process</h3>
+                <p style="color:black; animation: fadeIn 1s ease forwards;">To join, fill out an application form, provide ID, phone, and address. Pay an entry fee (varies by SACCO). For loans, submit a business plan or purpose, and await committee approval. Contact your local branch or use our chatbot for details.</p>
+            </div>
+            
+            <div class="overview-card" style="animation: fadeIn 1s ease forwards;">
+                <h3 style="color:black; animation: fadeIn 1s ease forwards;">Common Issues & Solutions</h3>
+                <p style="color:black; animation: fadeIn 1s ease forwards;">Challenges include loan defaults, inadequate capital, governance issues, and manual systems. If money is stuck (e.g., delayed withdrawal), contact your branch manager or MUSCCO. For cybersecurity or data protection, use secure channels and report suspicious activity.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<!-- Add this in your <style> if not already defined -->
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+</style>
+
 
     <!-- Branches Section -->
     <section class="branches" id="branches">
@@ -2032,768 +2042,457 @@
         const downloadBlankLoanBtn = document.getElementById('downloadBlankLoanForm');
         const submitEmailBtn = document.getElementById('submitEmail');
         const submitLoanEmailBtn = document.getElementById('submitLoanEmail');
-        const copyClipboardBtn = document.getElementById('copyClipboard');
+        copyClipboardBtn = document.getElementById('copyClipboard');
         const copyLoanClipboardBtn = document.getElementById('copyLoanClipboard');
-        const termsCheckbox = document.getElementById('terms');
-        const loanTermsCheckbox = document.getElementById('loanTerms');
-        const submitButtons = document.querySelectorAll('#applicationForm button[type="submit"], #applicationForm #submitEmail, #applicationForm #downloadForm, #loanApplicationForm button[type="submit"], #loanApplicationForm #submitLoanEmail, #loanApplicationForm #downloadLoanForm');
-        
-        // Disable submit buttons until terms agreed
-        function updateButtonStates() {
-            submitButtons.forEach(btn => {
-                btn.disabled = !(termsCheckbox?.checked || loanTermsCheckbox?.checked);
-                btn.style.opacity = btn.disabled ? '0.6' : '1';
-                btn.style.cursor = btn.disabled ? 'not-allowed' : 'pointer';
-            });
-        }
-        
-        if (termsCheckbox) {
-            termsCheckbox.addEventListener('change', updateButtonStates);
-        }
-        if (loanTermsCheckbox) {
-            loanTermsCheckbox.addEventListener('change', updateButtonStates);
-        }
-        updateButtonStates(); // Initial state
-        
+
+        // Open modals based on button clicked
         applyButtons.forEach(button => {
-            button.addEventListener('click', e => {
+            button.addEventListener('click', function(e) {
                 e.preventDefault();
-                const service = button.getAttribute('data-service');
+                const service = this.getAttribute('data-service');
+                modalTitle.textContent = `${service} Application`;
                 
-                if (service === "Loans & Credit") {
-                    modalTitle.textContent = `Apply for ${service}`;
+                if (service === 'Loans & Credit') {
                     loanModal.style.display = 'block';
+                    loanModal.classList.add('animate-modalFadeIn');
                 } else {
-                    modalTitle.textContent = `Apply for ${service}`;
                     modal.style.display = 'block';
+                    modal.classList.add('animate-modalFadeIn');
                 }
-                document.body.style.overflow = 'hidden';
             });
         });
-        
-        closeModals.forEach(closeBtn => {
-            closeBtn.addEventListener('click', () => {
+
+        // Close modals
+        closeModals.forEach(close => {
+            close.addEventListener('click', function() {
                 modal.style.display = 'none';
                 loanModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                modal.classList.remove('animate-modalFadeIn');
+                loanModal.classList.remove('animate-modalFadeIn');
             });
         });
-        
-        window.addEventListener('click', e => {
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
             if (e.target === modal) {
                 modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                modal.classList.remove('animate-modalFadeIn');
             }
             if (e.target === loanModal) {
                 loanModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                loanModal.classList.remove('animate-modalFadeIn');
             }
         });
-        
-        // General application form submission (WhatsApp)
-        applicationForm.addEventListener('submit', e => {
+
+        // Application Form Submission
+        applicationForm.addEventListener('submit', function(e) {
             e.preventDefault();
             if (!validateForm('applicationForm')) return;
-            
-            const fullName = document.getElementById('fullName').value || 'N/A';
-            const saccoNumber = document.getElementById('saccoNumber').value || 'N/A';
-            const idNumber = document.getElementById('idNumber').value || 'N/A';
-            const phone = document.getElementById('phone').value || 'N/A';
-            const email = document.getElementById('email').value || 'N/A';
-            const address = document.getElementById('address').value || 'N/A';
-            const employer = document.getElementById('employer').value || 'N/A';
-            const services = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ') || 'N/A';
-            
-            let message = `Application for ${modalTitle.textContent.replace('Apply for ', '')}\n\nFull Name: ${fullName}\nSACCO Number: ${saccoNumber}\nID Number: ${idNumber}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\nEmployer: ${employer}\nServices: ${services}`;
-            
+
+            const formData = new FormData(this);
+            let message = `Application Form Submission:\n`;
+            formData.forEach((value, key) => {
+                if (key === 'services') {
+                    message += `${key}: ${formData.getAll('services').join(', ')}\n`;
+                } else {
+                    message += `${key}: ${value}\n`;
+                }
+            });
+
             const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/+265 984 04 94 20?text=${encodedMessage}`, '_blank');
-            
-            alert('Form submitted via WhatsApp! Please complete the message in your WhatsApp app.');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            applicationForm.reset();
-            updateButtonStates();
+            const whatsappUrl = `https://wa.me/+265984049420?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
         });
-        
-        // Loan application form submission (WhatsApp)
-        loanApplicationForm.addEventListener('submit', e => {
+
+        // Loan Form Submission
+        loanApplicationForm.addEventListener('submit', function(e) {
             e.preventDefault();
             if (!validateForm('loanApplicationForm')) return;
-            
-            const formData = new FormData(loanApplicationForm);
-            let message = "LOAN APPLICATION FORM\n\n";
-            
-            for (let [key, value] of formData.entries()) {
-                message += `${key}: ${value || 'N/A'}\n`;
-            }
-            
+
+            const formData = new FormData(this);
+            let message = `Loan Application Form Submission:\n`;
+            formData.forEach((value, key) => {
+                message += `${key}: ${value}\n`;
+            });
+
             const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/+265 984 04 94 20?text=${encodedMessage}`, '_blank');
-            
-            alert('Loan form submitted via WhatsApp! Please complete the message in your WhatsApp app.');
-            loanModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            loanApplicationForm.reset();
-            updateButtonStates();
+            const whatsappUrl = `https://wa.me/+265984049420?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
         });
-        
-        // Email submission for general application
-        submitEmailBtn.addEventListener('click', () => {
+
+        // Email Submission for Application Form
+        submitEmailBtn.addEventListener('click', function() {
             if (!validateForm('applicationForm')) return;
-            
-            const fullName = document.getElementById('fullName').value || 'N/A';
-            const saccoNumber = document.getElementById('saccoNumber').value || 'N/A';
-            const idNumber = document.getElementById('idNumber').value || 'N/A';
-            const phone = document.getElementById('phone').value || 'N/A';
-            const email = document.getElementById('email').value || 'N/A';
-            const address = document.getElementById('address').value || 'N/A';
-            const employer = document.getElementById('employer').value || 'N/A';
-            const services = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ') || 'N/A';
-            
-            let body = `Application for ${modalTitle.textContent.replace('Apply for ', '')}\n\nFull Name: ${fullName}\nSACCO Number: ${saccoNumber}\nID Number: ${idNumber}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\nEmployer: ${employer}\nServices: ${services}`;
-            
-            const encodedSubject = encodeURIComponent('Mudi SACCO Application');
-            const encodedBody = encodeURIComponent(body);
-            window.open(`mailto:mayendajabulani@gmail.com?subject=${encodedSubject}&body=${encodedBody}`, '_blank');
+
+            const formData = new FormData(applicationForm);
+            let message = `Application Form Submission:\n`;
+            formData.forEach((value, key) => {
+                if (key === 'services') {
+                    message += `${key}: ${formData.getAll('services').join(', ')}\n`;
+                } else {
+                    message += `${key}: ${value}\n`;
+                }
+            });
+
+            const subject = encodeURIComponent('Mudi SACCO Application Form');
+            const emailBody = encodeURIComponent(message);
+            window.location.href = `mailto:mayendajabulani@gmail.com?subject=${subject}&body=${emailBody}`;
         });
-        
-        // Email submission for loan application
-        submitLoanEmailBtn.addEventListener('click', () => {
+
+        // Email Submission for Loan Form
+        submitLoanEmailBtn.addEventListener('click', function() {
             if (!validateForm('loanApplicationForm')) return;
-            
+
             const formData = new FormData(loanApplicationForm);
-            let body = "LOAN APPLICATION FORM\n\n";
-            
-            for (let [key, value] of formData.entries()) {
-                body += `${key}: ${value || 'N/A'}\n`;
-            }
-            
-            const encodedSubject = encodeURIComponent('Mudi SACCO Loan Application');
-            const encodedBody = encodeURIComponent(body);
-            window.open(`mailto:mayendajabulani@gmail.com?subject=${encodedSubject}&body=${encodedBody}`, '_blank');
+            let message = `Loan Application Form Submission:\n`;
+            formData.forEach((value, key) => {
+                message += `${key}: ${value}\n`;
+            });
+
+            const subject = encodeURIComponent('Mudi SACCO Loan Application');
+            const emailBody = encodeURIComponent(message);
+            window.location.href = `mailto:mayendajabulani@gmail.com?subject=${subject}&body=${emailBody}`;
         });
-        
-        // Copy to Clipboard for general form
-        copyClipboardBtn.addEventListener('click', () => {
+
+        // Copy to Clipboard for Application Form
+        copyClipboardBtn.addEventListener('click', function() {
             if (!validateForm('applicationForm')) return;
-            
-            const fullName = document.getElementById('fullName').value || 'N/A';
-            const saccoNumber = document.getElementById('saccoNumber').value || 'N/A';
-            const idNumber = document.getElementById('idNumber').value || 'N/A';
-            const phone = document.getElementById('phone').value || 'N/A';
-            const email = document.getElementById('email').value || 'N/A';
-            const address = document.getElementById('address').value || 'N/A';
-            const employer = document.getElementById('employer').value || 'N/A';
-            const services = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ') || 'N/A';
-            
-            let text = `Subject: Mudi SACCO Application\n\nApplication for ${modalTitle.textContent.replace('Apply for ', '')}\n\nFull Name: ${fullName}\nSACCO Number: ${saccoNumber}\nID Number: ${idNumber}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\nEmployer: ${employer}\nServices: ${services}`;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Form data copied to clipboard! Paste into your email client and send to mayendajabulani@gmail.com.');
-            }).catch(err => {
-                alert('Failed to copy to clipboard. Please manually copy the form data: ' + text);
+
+            const formData = new FormData(applicationForm);
+            let message = `Application Form Submission:\n`;
+            formData.forEach((value, key) => {
+                if (key === 'services') {
+                    message += `${key}: ${formData.getAll('services').join(', ')}\n`;
+                } else {
+                    message += `${key}: ${value}\n`;
+                }
+            });
+
+            navigator.clipboard.writeText(message).then(() => {
+                alert('Form data copied to clipboard!');
             });
         });
-        
-        // Copy to Clipboard for loan form
-        copyLoanClipboardBtn.addEventListener('click', () => {
+
+        // Copy to Clipboard for Loan Form
+        copyLoanClipboardBtn.addEventListener('click', function() {
             if (!validateForm('loanApplicationForm')) return;
-            
+
             const formData = new FormData(loanApplicationForm);
-            let text = "Subject: Mudi SACCO Loan Application\n\nLOAN APPLICATION FORM\n\n";
-            
-            for (let [key, value] of formData.entries()) {
-                text += `${key}: ${value || 'N/A'}\n`;
-            }
-            
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Form data copied to clipboard! Paste into your email client and send to mayendajabulani@gmail.com.');
-            }).catch(err => {
-                alert('Failed to copy to clipboard. Please manually copy the form data: ' + text);
+            let message = `Loan Application Form Submission:\n`;
+            formData.forEach((value, key) => {
+                message += `${key}: ${value}\n`;
+            });
+
+            navigator.clipboard.writeText(message).then(() => {
+                alert('Loan form data copied to clipboard!');
             });
         });
-        
-        // Download filled general form
-        downloadBtn.addEventListener('click', () => {
+
+        // Download Filled Application Form
+        downloadBtn.addEventListener('click', function() {
             if (!validateForm('applicationForm')) return;
-            
-            downloadBtn.disabled = true;
-            downloadBtn.textContent = 'Generating...';
-            
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            
-            // Add logo
-            doc.addImage('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', 'JPEG', 10, 10, 50, 25);
-            
-            // Title
-            doc.setFontSize(20);
-            doc.setTextColor(26, 82, 118);
-            doc.text(modalTitle.textContent, 105, 25, { align: 'center' });
-            
-            // Form border
-            doc.setDrawColor(0);
+            const formData = new FormData(applicationForm);
+            let y = 20;
+
+            doc.setFontSize(16);
+            doc.text('Mudi SACCO Application Form', 20, y);
+            y += 10;
             doc.setLineWidth(0.5);
-            doc.rect(10, 40, 190, 230);
-            
-            // Fields with data
+            doc.line(20, y, 190, y);
+            y += 10;
+
             doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            
-            const fullName = document.getElementById('fullName').value || '________';
-            doc.text('Full Name:', 20, 50);
-            doc.setLineWidth(0.2);
-            doc.line(60, 55, 190, 55);
-            doc.text(fullName, 60, 50);
-            
-            const saccoNumber = document.getElementById('saccoNumber').value || '________';
-            doc.text('SACCO Number (if applicable):', 20, 65);
-            doc.line(110, 70, 190, 70);
-            doc.text(saccoNumber, 110, 65);
-            
-            const idNumber = document.getElementById('idNumber').value || '________';
-            doc.text('ID Number:', 20, 80);
-            doc.line(60, 85, 190, 85);
-            doc.text(idNumber, 60, 80);
-            
-            const phone = document.getElementById('phone').value || '________';
-            doc.text('Phone Number:', 20, 95);
-            doc.line(70, 100, 190, 100);
-            doc.text(phone, 70, 95);
-            
-            const email = document.getElementById('email').value || '________';
-            doc.text('Email Address:', 20, 110);
-            doc.line(70, 115, 190, 115);
-            doc.text(email, 70, 110);
-            
-            const address = document.getElementById('address').value || '________';
-            doc.text('Postal Address:', 20, 125);
-            doc.rect(70, 120, 120, 30);
-            doc.text(address, 72, 130, { maxWidth: 116 });
-            
-            const employer = document.getElementById('employer').value || '________';
-            doc.text('Employer:', 20, 160);
-            doc.line(60, 165, 190, 165);
-            doc.text(employer, 60, 160);
-            
-            doc.text('Services Applied For:', 20, 175);
-            const services = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ') || 'None selected';
-            doc.text(services, 30, 185, { maxWidth: 160 });
-            
-            doc.text('I agree to the terms and conditions [X]', 20, 220);
-            
-            // Footer
-            doc.setFontSize(10);
-            doc.setTextColor(100);
-            doc.text('Mudi SACCO | Lali Lubani Road, Blantyre | 4307 | mayendajabulani@gmail.com', 20, 280, { align: 'center' });
-            doc.text('Submit this filled form via email to mayendajabulani@gmail.com or WhatsApp to 4307.', 20, 285, { align: 'center' });
-            
-            doc.save('mudi_sacco_application_form_filled.pdf');
-            
-            downloadBtn.disabled = false;
-            downloadBtn.textContent = 'Download Filled Form';
+            formData.forEach((value, key) => {
+                if (key === 'services') {
+                    doc.text(`${key}: ${formData.getAll('services').join(', ')}`, 20, y);
+                } else {
+                    doc.text(`${key}: ${value}`, 20, y);
+                }
+                y += 10;
+                if (y > 270) {
+                    doc.addPage();
+                    y = 20;
+                }
+            });
+
+            doc.save('Mudi_SACCO_Application_Form.pdf');
         });
-        
-        // Download blank general form
-        downloadBlankBtn.addEventListener('click', () => {
-            downloadBlankBtn.disabled = true;
-            downloadBlankBtn.textContent = 'Generating...';
-            
+
+        // Download Blank Application Form
+        downloadBlankBtn.addEventListener('click', function() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            
-            // Add logo
-            doc.addImage('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', 'JPEG', 10, 10, 50, 25);
-            
-            // Title
-            doc.setFontSize(20);
-            doc.setTextColor(26, 82, 118);
-            doc.text(modalTitle.textContent, 105, 25, { align: 'center' });
-            
-            // Form border
-            doc.setDrawColor(0);
+
+            doc.setFontSize(16);
+            doc.text('Mudi SACCO Application Form (Blank)', 20, 20);
             doc.setLineWidth(0.5);
-            doc.rect(10, 40, 190, 230);
-            
-            // Fields
+            doc.line(20, 30, 190, 30);
             doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            
-            doc.text('Full Name: ________', 20, 50);
-            doc.setLineWidth(0.2);
-            doc.line(60, 55, 190, 55);
-            
-            doc.text('SACCO Number (if applicable): ________', 20, 65);
-            doc.line(110, 70, 190, 70);
-            
-            doc.text('ID Number: ________', 20, 80);
-            doc.line(60, 85, 190, 85);
-            
-            doc.text('Phone Number: ________', 20, 95);
-            doc.line(70, 100, 190, 100);
-            
-            doc.text('Email Address: ________', 20, 110);
-            doc.line(70, 115, 190, 115);
-            
-            doc.text('Postal Address: ________', 20, 125);
-            doc.rect(70, 120, 120, 30);
-            
-            doc.text('Employer: ________', 20, 160);
-            doc.line(60, 165, 190, 165);
-            
-            doc.text('Services Applied For: ________', 20, 175);
-            doc.text('Funds Transfer [ ]   Balance Inquiry [ ]   Loan Application [ ]', 30, 185, { maxWidth: 160 });
-            
-            doc.text('I agree to the terms and conditions [ ]', 20, 220);
-            
-            // Footer
-            doc.setFontSize(10);
-            doc.setTextColor(100);
-            doc.text('Mudi SACCO | Lali Lubani Road, Blantyre | 4307 | mayendajabulani@gmail.com', 20, 280, { align: 'center' });
-            doc.text('Fill this form manually, scan it, and send via WhatsApp to 4307 or email to mayendajabulani@gmail.com.', 20, 285, { align: 'center' });
-            
-            doc.save('mudi_sacco_application_form_blank.pdf');
-            
-            downloadBlankBtn.disabled = false;
-            downloadBlankBtn.textContent = 'Download Blank Form';
-        });
-        
-        // Download filled loan form
-        downloadLoanBtn.addEventListener('click', () => {
-            if (!validateForm('loanApplicationForm')) return;
-            
-            downloadLoanBtn.disabled = true;
-            downloadLoanBtn.textContent = 'Generating...';
-            
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Add logo
-            doc.addImage('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', 'JPEG', 10, 10, 50, 25);
-            
-            // Title
-            doc.setFontSize(20);
-            doc.setTextColor(26, 82, 118);
-            doc.text('LOAN APPLICATION AND AGREEMENT FORM', 105, 25, { align: 'center' });
-            
-            // Header fields
-            doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            doc.text('Date: ' + (document.getElementById('signatureDate').value || '________'), 20, 40);
-            doc.text('Branch: ________', 120, 40);
-            doc.text('SACCO Number: ________', 20, 50);
-            doc.text('Payroll Number: ________', 120, 50);
-            
-            // Personal Information
-            doc.setFontSize(14);
-            doc.setTextColor(26, 82, 118);
-            doc.text('PART 1: PERSONAL INFORMATION', 20, 65);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            
-            const firstName = document.getElementById('firstName').value || '________';
-            doc.text('First Name: ' + firstName, 20, 75);
-            doc.line(50, 80, 70, 80);
-            
-            const middleName = document.getElementById('middleName').value || '________';
-            doc.text('Middle Name: ' + middleName, 80, 75);
-            doc.line(110, 80, 130, 80);
-            
-            const surname = document.getElementById('surname').value || '________';
-            doc.text('Surname: ' + surname, 150, 75);
-            doc.line(175, 80, 190, 80);
-            
-            const dob = document.getElementById('dob').value || 'DD/MM/YYYY';
-            doc.text('Date of Birth: ' + dob, 20, 85);
-            
-            const presentAddress = document.getElementById('presentAddress').value || '________';
-            doc.text('Present Address: ' + presentAddress, 20, 95, { maxWidth: 170 });
-            
-            const idType = document.getElementById('idType').value || '________';
-            doc.text('ID Type: ' + idType, 20, 105);
-            
-            const idNumberLoan = document.getElementById('idNumberLoan').value || '________';
-            doc.text('ID Number: ' + idNumberLoan, 100, 105);
-            
-            const homeVillage = document.getElementById('homeVillage').value || '________';
-            doc.text('Home Village: ' + homeVillage, 20, 115);
-            
-            const ta = document.getElementById('ta').value || '________';
-            doc.text('T/A: ' + ta, 80, 115);
-            
-            const district = document.getElementById('district').value || '________';
-            doc.text('District: ' + district, 130, 115);
-            
-            const phoneLoan = document.getElementById('phoneLoan').value || '________';
-            doc.text('Phone number: ' + phoneLoan, 20, 125);
-            
-            const emailLoan = document.getElementById('emailLoan').value || '________';
-            doc.text('Email: ' + emailLoan, 100, 125);
-            
-            doc.setFontSize(14);
-            doc.setTextColor(26, 82, 118);
-            doc.text("Employer's Details", 20, 140);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            
-            const employerName = document.getElementById('employerName').value || '________';
-            doc.text("Employer's Name: " + employerName, 20, 150);
-            
-            const jobTitle = document.getElementById('jobTitle').value || '________';
-            doc.text('Job Title: ' + jobTitle, 120, 150);
-            
-            const grossSalary = document.getElementById('grossSalary').value || '________';
-            doc.text('Gross Salary: ' + grossSalary, 20, 160);
-            
-            const netSalary = document.getElementById('netSalary').value || '________';
-            doc.text('Net Salary: ' + netSalary, 100, 160);
-            
-            // Loan Requirements
-            doc.setFontSize(14);
-            doc.setTextColor(26, 82, 118);
-            doc.text('PART 2: LOAN REQUIREMENT DETAILS', 20, 175);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            
-            const loanType = document.getElementById('loanType').value || '________';
-            doc.text('Loan Type: ' + loanType, 20, 185);
-            
-            const loanAmountApplied = document.getElementById('loanAmountApplied').value || '________';
-            doc.text('Loan Amount Applied: ' + loanAmountApplied, 20, 195);
-            
-            const repaymentPeriod = document.getElementById('repaymentPeriod').value || '________';
-            doc.text('Repayment Period (months): ' + repaymentPeriod, 100, 195);
-            
-            const loanPurpose = document.getElementById('loanPurpose').value || '________';
-            doc.text('Loan Purpose: ' + loanPurpose, 20, 205, { maxWidth: 170 });
-            
-            const otherCollateral = document.getElementById('otherCollateral').value || '________';
-            doc.text('Other Collateral: ' + otherCollateral, 20, 220);
-            
-            // Loan Agreement
-            doc.setFontSize(14);
-            doc.setTextColor(26, 82, 118);
-            doc.text('PART 3: LOAN AGREEMENT AND DECLARATION', 20, 235);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            doc.text('I authorize my employer to deduct loan repayment directly from my salary until full repayment.', 20, 245, { maxWidth: 170 });
-            
-            const applicantSignature = document.getElementById('applicantSignature').value || '________';
-            doc.text("Applicant's Signature: " + applicantSignature, 20, 260);
-            
-            const signatureDate = document.getElementById('signatureDate').value || '________';
-            doc.text('Date: ' + signatureDate, 120, 260);
-            
-            // Footer
-            doc.setFontSize(10);
-            doc.setTextColor(100);
-            doc.text('Mudi SACCO | Lali Lubani Road, Blantyre | 4307 | mayendajabulani@gmail.com', 20, 280, { align: 'center' });
-            doc.text('Submit this filled form via email to mayendajabulani@gmail.com or WhatsApp to 4307.', 20, 285, { align: 'center' });
-            
-            doc.save('mudi_sacco_loan_application_form_filled.pdf');
-            
-            downloadLoanBtn.disabled = false;
-            downloadLoanBtn.textContent = 'Download Filled Form';
-        });
-        
-        // Download blank loan form
-        downloadBlankLoanBtn.addEventListener('click', () => {
-            downloadBlankLoanBtn.disabled = true;
-            downloadBlankLoanBtn.textContent = 'Generating...';
-            
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Add logo
-            doc.addImage('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', 'JPEG', 10, 10, 50, 25);
-            
-            // Title
-            doc.setFontSize(20);
-            doc.setTextColor(26, 82, 118);
-            doc.text('LOAN APPLICATION AND AGREEMENT FORM', 105, 25, { align: 'center' });
-            
-            // Header fields
-            doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            doc.text('Date: ________', 20, 40);
-            doc.text('Branch: ________', 120, 40);
-            doc.text('SACCO Number: ________', 20, 50);
-            doc.text('Payroll Number: ________', 120, 50);
-            
-            // Personal Information
-            doc.setFontSize(14);
-            doc.setTextColor(26, 82, 118);
-            doc.text('PART 1: PERSONAL INFORMATION', 20, 65);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            doc.text('First Name: ________', 20, 75);
-            doc.text('Middle Name: ________', 80, 75);
-            doc.text('Surname: ________', 150, 75);
-            
-            doc.text('Date of Birth: DD/MM/YYYY', 20, 85);
-            doc.text('Present Address: ________', 20, 95);
-            doc.text('ID Type: ________', 20, 105);
-            doc.text('ID Number: ________', 100, 105);
-            doc.text('Home Village: ________', 20, 115);
-            doc.text('T/A: ________', 80, 115);
-            doc.text('District: ________', 130, 115);
-            doc.text('Phone number: ________', 20, 125);
-            doc.text('Email: ________', 100, 125);
-            
-            doc.setFontSize(14);
-            doc.setTextColor(26, 82, 118);
-            doc.text("Employer's Details", 20, 140);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            doc.text("Employer's Name: ________", 20, 150);
-            doc.text('Job Title: ________', 120, 150);
-            doc.text('Gross Salary: ________', 20, 160);
-            doc.text('Net Salary: ________', 100, 160);
-            
-            // Loan Requirements
-            doc.setFontSize(14);
-            doc.setTextColor(26, 82, 118);
-            doc.text('PART 2: LOAN REQUIREMENT DETAILS', 20, 175);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            doc.text('Loan Types (tick one):', 20, 185);
-            
-            const loanTypes = [
-                'Normal Loan (36 Months) [ ]',
-                'Emergency Loan (4 Months) [ ]',
-                'Special Loan (1 Month) [ ]',
-                'Material Loan (24 Months) [ ]',
-                'Chakudza Loan (3 Months) [ ]',
-                'Group Business Loan (12 Months) [ ]',
-                'Relief Loan (6 Months) [ ]',
-                'Business Loan (12 Months) [ ]',
-                'Fast Loan (12 Months) [ ]',
-                'Sanitation Loan (12 Months) [ ]',
-                'Sanitation Business Loan (12 Months) [ ]',
-                'Fertilizer Loan (12 Months) [ ]',
-                'Loan Refinance [ ]'
+
+            const fields = [
+                'Full Name: ___________________________',
+                'SACCO Number: ___________________________',
+                'ID Number: ___________________________',
+                'Phone Number: ___________________________',
+                'Email Address: ___________________________',
+                'Postal Address: ___________________________',
+                'Employer: ___________________________',
+                'Services Applied For: [ ] Funds Transfer [ ] Balance Inquiry [ ] Loan Application',
+                'Terms and Conditions: [ ] I agree'
             ];
-            
-            let yPos = 195;
-            loanTypes.forEach((type, index) => {
-                if (index % 2 === 0 && index > 0) yPos += 10;
-                const xPos = index % 2 === 0 ? 20 : 110;
-                doc.text(type, xPos, yPos);
-                if (index % 2 !== 0) yPos += 10;
+
+            let y = 40;
+            fields.forEach(field => {
+                doc.text(field, 20, y);
+                y += 10;
+                if (y > 270) {
+                    doc.addPage();
+                    y = 20;
+                }
             });
-            
-            yPos += 10;
-            doc.text('Loan Amount Applied: ________', 20, yPos);
-            yPos += 10;
-            doc.text('Repayment Period: ________', 20, yPos);
-            yPos += 10;
-            doc.text('Loan Purpose: ________', 20, yPos);
-            yPos += 15;
-            doc.text('Other Collateral: ________', 20, yPos);
-            
-            // Loan Agreement
-            doc.setFontSize(14);
-            doc.setTextColor(26, 82, 118);
-            doc.text('PART 3: LOAN AGREEMENT AND DECLARATION', 20, yPos + 15);
-            
+
+            doc.save('Mudi_SACCO_Blank_Application_Form.pdf');
+        });
+
+        // Download Filled Loan Form
+        downloadLoanBtn.addEventListener('click', function() {
+            if (!validateForm('loanApplicationForm')) return;
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const formData = new FormData(loanApplicationForm);
+            let y = 20;
+
+            doc.setFontSize(16);
+            doc.text('Mudi SACCO Loan Application Form', 20, y);
+            y += 10;
+            doc.setLineWidth(0.5);
+            doc.line(20, y, 190, y);
+            y += 10;
+
             doc.setFontSize(12);
-            doc.setTextColor(51, 51, 51);
-            doc.text('I authorize my employer to deduct loan repayment directly from my salary until full repayment.', 20, yPos + 25, { maxWidth: 170 });
-            doc.text("Applicant's Signature: ________", 20, yPos + 40);
-            doc.text('Date: ________', 120, yPos + 40);
-            
-            // Footer
-            doc.setFontSize(10);
-            doc.setTextColor(100);
-            doc.text('Mudi SACCO | Lali Lubani Road, Blantyre | 4307 | mayendajabulani@gmail.com', 20, yPos + 60, { align: 'center' });
-            doc.text('Fill this form manually, scan it, and send via WhatsApp to 4307 or email to mayendajabulani@gmail.com.', 20, yPos + 65, { align: 'center' });
-            
-            doc.save('mudi_sacco_loan_application_form_blank.pdf');
-            
-            downloadBlankLoanBtn.disabled = false;
-            downloadBlankLoanBtn.textContent = 'Download Blank Form';
+            formData.forEach((value, key) => {
+                doc.text(`${key}: ${value}`, 20, y);
+                y += 10;
+                if (y > 270) {
+                    doc.addPage();
+                    y = 20;
+                }
+            });
+
+            doc.save('Mudi_SACCO_Loan_Application_Form.pdf');
+        });
+
+        // Download Blank Loan Form
+        downloadBlankLoanBtn.addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(16);
+            doc.text('Mudi SACCO Loan Application Form (Blank)', 20, 20);
+            doc.setLineWidth(0.5);
+            doc.line(20, 30, 190, 30);
+            doc.setFontSize(12);
+
+            const fields = [
+                'PART 1: PERSONAL INFORMATION',
+                'First Name: ___________________________',
+                'Middle Name: ___________________________',
+                'Surname: ___________________________',
+                'Date of Birth: ___________________________',
+                'Present Address: ___________________________',
+                'ID Type: ___________________________',
+                'ID Number: ___________________________',
+                'Home Village: ___________________________',
+                'T/A: ___________________________',
+                'District: ___________________________',
+                'Phone number: ___________________________',
+                'Email: ___________________________',
+                "Employer's Name: ___________________________",
+                'Job Title: ___________________________',
+                'Gross Salary: ___________________________',
+                'Net Salary: ___________________________',
+                'PART 2: LOAN REQUIREMENT DETAILS',
+                'Loan Type: ___________________________',
+                'Loan Amount Applied: ___________________________',
+                'Repayment Period: ___________________________',
+                'Loan Purpose: ___________________________',
+                'Other Collateral: ___________________________',
+                'PART 3: LOAN AGREEMENT AND DECLARATION',
+                'Applicant’s Signature: ___________________________',
+                'Date: ___________________________',
+                'Key Fact Statement: [ ] I have read and understood'
+            ];
+
+            let y = 40;
+            fields.forEach(field => {
+                doc.text(field, 20, y);
+                y += 10;
+                if (y > 270) {
+                    doc.addPage();
+                    y = 20;
+                }
+            });
+
+            doc.save('Mudi_SACCO_Blank_Loan_Application_Form.pdf');
         });
     }
-    
-    // FAQ Accordion
+
+    // FAQ Toggle
     function initFAQ() {
         const faqQuestions = document.querySelectorAll('.faq-question');
-        
         faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
                 answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                question.querySelector('i').classList.toggle('fa-chevron-down');
-                question.querySelector('i').classList.toggle('fa-chevron-up');
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
             });
         });
     }
-    
+
     // Loan Calculator
-    function initCalculator() {
+    function initLoanCalculator() {
         const calculateBtn = document.getElementById('calculateLoan');
         const resultDiv = document.getElementById('loanResult');
-        
-        calculateBtn.addEventListener('click', () => {
+
+        calculateBtn.addEventListener('click', function() {
             const amount = parseFloat(document.getElementById('loanAmount').value);
             const rate = parseFloat(document.getElementById('interestRate').value) / 100 / 12;
-            const term = parseFloat(document.getElementById('loanTerm').value);
-            
+            const term = parseInt(document.getElementById('loanTerm').value);
+
             if (isNaN(amount) || isNaN(rate) || isNaN(term)) {
-                resultDiv.textContent = 'Please enter valid numbers.';
+                resultDiv.innerHTML = '<span style="color: red;">Please fill in all fields with valid numbers.</span>';
                 return;
             }
-            
-            const monthlyPayment = (amount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
-            resultDiv.textContent = `Monthly Payment: K${monthlyPayment.toFixed(2)} (estimate, excludes fees)`;
+
+            // Monthly payment formula: P = [r*PV] / [1 - (1 + r)^-n]
+            const monthlyPayment = (rate * amount) / (1 - Math.pow(1 + rate, -term));
+            const totalPayment = monthlyPayment * term;
+            const totalInterest = totalPayment - amount;
+
+            resultDiv.innerHTML = `
+                Monthly Payment: K${monthlyPayment.toFixed(2)}<br>
+                Total Payment: K${totalPayment.toFixed(2)}<br>
+                Total Interest: K${totalInterest.toFixed(2)}
+            `;
         });
     }
-    
-    // Chatbot Functionality (with added response for email submission)
-    function initChatbot() {
-        const toggleBtn = document.getElementById('chatbotToggle');
-        const modal = document.getElementById('chatbotModal');
-        const closeBtn = document.getElementById('closeChatbot');
-        const sendBtn = document.getElementById('chatSend');
-        const input = document.getElementById('chatInput');
-        const body = document.getElementById('chatBody');
-        
-        toggleBtn.addEventListener('click', () => {
-            modal.style.display = 'flex';
-            input.focus();
-        });
-        
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-        
-        window.addEventListener('click', e => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-        
-        function addMessage(text, className) {
-            const msg = document.createElement('div');
-            msg.classList.add('chat-message', className);
-            msg.textContent = text;
-            body.appendChild(msg);
-            body.scrollTop = body.scrollHeight;
-        }
-        
-        sendBtn.addEventListener('click', () => {
-            const userText = input.value.trim().toLowerCase();
-            if (!userText) return;
-            
-            addMessage(userText, 'user');
-            input.value = '';
-            input.focus();
-            
-            let response = "Sorry, I didn't understand that. Try asking about services, branches, or how to apply.";
-            
-            if (userText.includes('hey') || userText.includes('hello') || userText.includes('hi') || userText.includes('how are you')) {
-                response = "Hello! I'm the Mudi SACCO assistant. How can I help you today? You can ask me about our services, branches, membership, loans, or anything about SACCOs in Malawi.";
-            } else if (userText.includes('apply') || userText.includes('join') || userText.includes('membership') || userText.includes('application process')) {
-                response = "To apply for membership at Mudi SACCO: 1. Fill out the form with your name, ID, phone, address, and other details. 2. Submit via WhatsApp to 4307, email to mayendajabulani@gmail.com, or visit a branch. 3. Pay entry fee. For loans, provide purpose/business plan and await approval from the committee. Use the Apply Now buttons on our site or download the form for manual filling.";
-            } else if (userText.includes('money stuck') || userText.includes('withdrawal issue') || userText.includes('delayed') || userText.includes('hung money')) {
-                response = "If your money is stuck or delayed at Mudi SACCO: 1. Contact your branch manager with transaction details. Common causes include system delays, verification issues, public holidays, or economic challenges. 2. If unresolved, call 4307 or email mayendajabulani@gmail.com. 3. Escalate to MUSCCO if needed.";
-            } else if (userText.includes('branches') || userText.includes('locations') || userText.includes('contacts') || userText.includes('where are you')) {
-                response = "Mudi SACCO branches and contacts: Blantyre (Main/Chichiri) - 0991649455, +265 187 20 91; Lilongwe - 0991649492; Zomba - 0992884517; Mzuzu - 0888314781; Chikwawa (Kasinthula); Nsanje. Check the map on our Branches section.";
-            } else if (userText.includes('services') || userText.includes('what do you offer') || userText.includes('products')) {
-                response = "Mudi SACCO services include savings products, loans (e.g., Mai Watsogolo for women), financial counseling, mobile banking, and community initiatives like tree planting and financial literacy.";
-            } else if (userText.includes('history') || userText.includes('about mudi') || userText.includes('leadership') || userText.includes('ceo') || userText.includes('established')) {
-                response = "Mudi SACCO, established in 1990, rebranded in 2000, has over 21,000 members and 7 branches. CEO: Triza Magreta. 2024 surplus: K580M. Affiliated with MUSCCO and licensed by Reserve Bank of Malawi.";
-            } else if (userText.includes('saccos in malawi') || userText.includes('how saccos work') || userText.includes('what is a sacco')) {
-                response = "SACCOs in Malawi are member-owned cooperatives for savings and low-interest loans, governed by MUSCCO. Benefits include financial inclusion and dividends.";
-            } else if (userText.includes('women') || userText.includes('empowerment') || userText.includes('mai watsogolo') || userText.includes('female')) {
-                response = "Mai Watsogolo offers loans and training for women to start businesses and achieve financial independence. Apply via the Women Empowerment service.";
-            } else if (userText.includes('loan') || userText.includes('credit') || userText.includes('borrow') || userText.includes('interest rate')) {
-                response = "Mudi SACCO offers various loans. Apply via form, provide purpose/business plan. Use our calculator to estimate repayments.";
-            } else if (userText.includes('common issues') || userText.includes('problems') || userText.includes('administration enquiry') || userText.includes('complaint')) {
-                response = "Common issues: Loan defaults, delayed withdrawals, governance. Contact branch, call 4307, or email mayendajabulani@gmail.com.";
-            } else if (userText.includes('contact') || userText.includes('support') || userText.includes('help') || userText.includes('phone number')) {
-                response = "Contact: 4307, mayendajabulani@gmail.com, or visit a branch (Blantyre, Lilongwe, Zomba, Mzuzu, Chikwawa, Nsanje).";
-            } else if (userText.includes('initiatives') || userText.includes('community') || userText.includes('promotion') || userText.includes('event')) {
-                response = "Initiatives include tree planting, financial literacy, and Mai Watsogolo for women. Promotions: Tikondwere 35 (K5M prize), Chaka Chomanga.";
-            } else if (userText.includes('performance') || userText.includes('surplus') || userText.includes('financial') || userText.includes('results')) {
-                response = "2024 surplus: K580M (62% increase from 2023). Ranked best SACCO in Southern Region.";
-            } else if (userText.includes('save') || userText.includes('savings') || userText.includes('deposit') || userText.includes('investment')) {
-                response = "Savings products include shares, deposits, and youth accounts. Earn dividends and secure loans.";
-            } else if (userText.includes('mobile banking') || userText.includes('digital') || userText.includes('online') || userText.includes('app')) {
-                response = "Mobile banking offers account access, balance checks, and fund transfers. Register at a branch.";
-            } else if (userText.includes('requirements') || userText.includes('documents') || userText.includes('need to apply')) {
-                response = "Membership requires ID, proof of address, photos, application form, and initial deposit. Loans need pay slips or business plans.";
-            } else if (userText.includes('thank') || userText.includes('thanks') || userText.includes('appreciate')) {
-                response = "You're welcome! Anything else I can help with?";
-            } else if (userText.includes('bye') || userText.includes('goodbye') || userText.includes('see you')) {
-                response = "Thank you for chatting. Have a great day!";
-            } else if (userText.includes('download') || userText.includes('form') || userText.includes('pdf') || userText.includes('blank form')) {
-                response = "To download forms: Use 'Download Filled Form' for your data or 'Download Blank Form' for an empty version. Print, fill, and submit via WhatsApp or email.";
-            } else if (userText.includes('email') || userText.includes('send email') || userText.includes('submit email')) {
-                response = "Use 'Submit via Email' to open your email client with pre-filled data, or 'Copy to Clipboard' to paste manually. Send to mayendajabulani@gmail.com.";
-            }
-            
-            setTimeout(() => {
-                addMessage(response, 'bot');
-            }, 500);
-        });
-        
-        input.addEventListener('keypress', e => {
-            if (e.key === 'Enter') sendBtn.click();
-        });
-    }
-    
-    // Back to Top
+
+    // Back to Top Button
     function initBackToTop() {
-        const btn = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            btn.style.display = window.scrollY > 300 ? 'block' : 'none';
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+                backToTop.classList.add('animate-bounce');
+            } else {
+                backToTop.style.display = 'none';
+                backToTop.classList.remove('animate-bounce');
+            }
         });
-        
-        btn.addEventListener('click', () => {
+
+        backToTop.addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
-    
-    // Animation on scroll
-    function initAnimations() {
-        const animatedElements = document.querySelectorAll('.animate-fadeIn, .animate-slideInUp, .animate-slideInRight');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.visibility = 'visible';
-                    entry.target.style.animationPlayState = 'running';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        animatedElements.forEach(el => {
-            el.style.visibility = 'hidden';
-            observer.observe(el);
+
+    // Chatbot Functionality
+    function initChatbot() {
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotModal = document.getElementById('chatbotModal');
+        const closeChatbot = document.getElementById('closeChatbot');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatBody = document.getElementById('chatBody');
+
+        chatbotToggle.addEventListener('click', function() {
+            chatbotModal.style.display = 'block';
+            chatbotModal.classList.add('animate-modalFadeIn');
         });
+
+        closeChatbot.addEventListener('click', function() {
+            chatbotModal.style.display = 'none';
+            chatbotModal.classList.remove('animate-modalFadeIn');
+        });
+
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chat-message user';
+            userMessage.textContent = message;
+            chatBody.appendChild(userMessage);
+
+            const botResponse = getBotResponse(message.toLowerCase());
+            const botMessage = document.createElement('div');
+            botMessage.className = 'chat-message bot';
+            botMessage.innerHTML = botResponse;
+            chatBody.appendChild(botMessage);
+
+            chatInput.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            if (message.includes('apply') || message.includes('membership')) {
+                return 'To apply for membership, fill out the application form with your full name, ID, phone, and address. Submit via WhatsApp or visit a branch. Pay the entry fee and await approval. <a href="#" class="apply-btn" data-service="Membership">Apply Now</a>';
+            } else if (message.includes('branches')) {
+                return 'Mudi SACCO has branches in Blantyre (Main), Lilongwe (Kanengo), Mzuzu, Zomba, Kasinthula (Chikwawa), and Nsanje. Check the Branches section for a map!';
+            } else if (message.includes('services')) {
+                return 'We offer Mobile Banking, Loans & Credit, Savings Accounts, Women Empowerment programs, and Community Initiatives. Explore the Services section or <a href="#" class="apply-btn" data-service="Services">Apply Now</a>.';
+            } else if (message.includes('stuck') || message.includes('money')) {
+                return 'If your money is stuck, contact your branch manager with transaction details. If unresolved, escalate to MUSCCO or call 4307 for support.';
+            } else if (message.includes('sacco') || message.includes('how sacco works')) {
+                return 'SACCOs in Malawi are member-owned cooperatives where savings are pooled to provide low-interest loans and dividends. Mudi SACCO, part of MUSCCO, promotes financial inclusion. Learn more in the SACCO Overview section.';
+            } else if (message.includes('loan')) {
+                return 'We offer various loans like Normal, Emergency, and Mai Watsogolo for women. Apply via the Loans & Credit form in the Services section or <a href="#" class="apply-btn" data-service="Loans & Credit">Apply Now</a>.';
+            } else {
+                return 'I’m here to help! Ask about membership, services, branches, loans, or SACCOs in Malawi. You can also explore the FAQ section for more details.';
+            }
+        }
     }
-    
-    // Initialize everything
-    document.addEventListener('DOMContentLoaded', () => {
+
+    // Initialize all functionalities
+    document.addEventListener('DOMContentLoaded', function() {
         initMap();
         initHeroSlider();
         initMobileNav();
         initModals();
         initFAQ();
-        initCalculator();
-        initChatbot();
+        initLoanCalculator();
         initBackToTop();
-        initAnimations();
+        initChatbot();
+
+        // Re-attach modal listeners for chatbot apply buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('apply-btn')) {
+                const service = e.target.getAttribute('data-service');
+                const modal = document.getElementById('applicationModal');
+                const loanModal = document.getElementById('loanModal');
+                const modalTitle = document.getElementById('modalTitle');
+                
+                modalTitle.textContent = `${service} Application`;
+                if (service === 'Loans & Credit') {
+                    loanModal.style.display = 'block';
+                    loanModal.classList.add('animate-modalFadeIn');
+                } else {
+                    modal.style.display = 'block';
+                    modal.classList.add('animate-modalFadeIn');
+                }
+            }
+        });
     });
 </script>
+</body>
+</html>
