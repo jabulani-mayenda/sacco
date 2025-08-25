@@ -1,0 +1,2799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mudi SACCO offers secure, convenient banking services in Malawi. Learn about our services, branches, and SACCOs in Malawi.">
+    <meta name="keywords" content="Mudi SACCO, Malawi SACCO, savings, loans, mobile banking, financial cooperative">
+    <title>Mudi SACCO - Secure, Convenient and Reliable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --primary-blue: #1a5276;
+            --secondary-blue: #2e86c1;
+            --gold: #d4af37;
+            --light-gold: #f1c40f;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: var(--white);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cta-button {
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--light-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--primary-blue);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            min-width: 200px;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: var(--white);
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(26, 82, 118, 0.5), rgba(26, 82, 118, 0.6));
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--light-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--gold);
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            text-align: center;
+            padding: 40px 30px;
+            border-top: 5px solid var(--gold);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            font-size: 3.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+            height: 80px;
+            width: 80px;
+            line-height: 80px;
+            background: rgba(26, 82, 118, 0.1);
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: rotate(360deg);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+        
+        .service-card p {
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        /* SACCO Overview Section */
+        .sacco-overview {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .sacco-overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .overview-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            color: var(--white);
+            height: 300px; /* Fixed height for consistency */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .overview-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overview-card:hover::before {
+            opacity: 0.85;
+        }
+        
+        .overview-card > * {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .overview-card:hover > * {
+            transform: translateY(-5px);
+        }
+        
+        .overview-card:nth-child(1)::before {
+            background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800');
+        }
+        
+        .overview-card:nth-child(2)::before {
+            background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800');
+        }
+        
+        .overview-card:nth-child(3)::before {
+            background-image: url('https://images.unsplash.com/photo-1581093571427-4e5d7a38639c?auto=format&fit=crop&w=800');
+        }
+        
+        .overview-card:nth-child(4)::before {
+            background-image: url('https://images.unsplash.com/photo-1504868584819-f75f95fd2c51?auto=format&fit=crop&w=800');
+        }
+        
+        .overview-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+        
+        .overview-card p {
+            color: var(--white);
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .faq-item {
+            background: var(--light-gray);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .faq-answer {
+            padding: 0 15px 15px;
+            display: none;
+        }
+        
+        /* News Section */
+        .news {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+        
+        .news-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        /* Financial Tools Section */
+        .financial-tools {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .calculator {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--white);
+            padding: 10px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        /* Branches Section */
+        .branches {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+        
+        #map {
+            height: 450px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        /* Chatbot Styles */
+        .chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1100;
+        }
+        
+        .chatbot-button:hover {
+            background-color: var(--secondary-blue);
+            transform: scale(1.1);
+        }
+        
+        .chatbot-modal {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1100;
+            flex-direction: column;
+        }
+        
+        .chatbot-header {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-body {
+            padding: 15px;
+            overflow-y: auto;
+            flex-grow: 1;
+            background: var(--light-gray);
+        }
+        
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        
+        .chat-message.user {
+            background: var(--secondary-blue);
+            color: var(--white);
+            margin-left: auto;
+        }
+        
+        .chat-message.bot {
+            background: var(--white);
+            color: var(--dark-gray);
+        }
+        
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            background: var(--white);
+            border-top: 1px solid #ddd;
+        }
+        
+        .chatbot-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+        }
+        
+        .chatbot-input button {
+            background: var(--gold);
+            color: var(--dark-gray);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+        }
+        
+        .chatbot-input button:hover {
+            background: var(--light-gold);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1100;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            margin: 50px auto;
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.8rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-blue);
+            transform: rotate(90deg);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--primary-blue);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.2);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Loan Form Styles */
+        .loan-form-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .loan-form-section h4 {
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 8px;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-field {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .signature-area {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--gold);
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 12px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--gold);
+            padding-left: 8px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--gold);
+            color: var(--dark-gray);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top:hover {
+            background: var(--light-gold);
+            transform: translateY(-5px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-60px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* Animation Classes */
+        .animate-fadeIn {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .animate-slideInUp {
+            animation: slideInUp 1s ease forwards;
+        }
+        
+        .animate-slideInRight {
+            animation: slideInRight 1s ease forwards;
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 280px;
+                height: calc(100vh - 80px);
+                background: var(--primary-blue);
+                transition: all 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 30px;
+                gap: 20px;
+            }
+            
+            nav a {
+                display: block;
+                padding: 12px 15px;
+                border-radius: 6px;
+            }
+            
+            nav a:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            .dropdown-menu {
+                position: static;
+                background: rgba(0, 0, 0, 0.2);
+                box-shadow: none;
+            }
+            
+            .header-content {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                height: auto;
+                padding: 100px 0;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .service-card {
+                padding: 30px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .chatbot-modal {
+                width: 90%;
+                height: 80vh;
+                bottom: 10px;
+                right: 5%;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-field {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="images/logo.jpeg" alt="Mudi SACCO Logo" class="logo-img">
+                <h1>Mudi SACCO</h1>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#branches">Branches</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">More <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="#sacco-overview">SACCO Overview</a>
+                            <a href="#faq">FAQ</a>
+                            <a href="#news">News</a>
+                            <a href="#financial-tools">Financial Tools</a>
+                            <a href="#gallery">Gallery</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            
+            <a href="tel:4307" class="cta-button">
+                <i class="fas fa-phone"></i> Call Us
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-slider">
+            <div class="slide active" style="background-image: url('images/anual\ meeting.jpg');"></div>
+            <div class="slide" style="background-image: url('images/finicial\ coaching.jpg');"></div>
+            <div class="slide" style="background-image: url('images/JEF_8998.jpg');"></div>
+            <div class="slide" style="background-image: url('images/mobile\ banking.jpg');"></div>
+            <div class="slide" style="background-image: url('images/tree\ plantation.jpg');"></div>
+            <div class="slide" style="background-image: url('images/women.jpeg');"></div>
+        </div>
+        
+        <div class="container hero-content">
+            <h2 class="animate-slideInUp">Welcome to Mudi SACCO</h2>
+            <p class="animate-slideInUp">Your journey to financial freedom begins here. Secure, convenient, and reliable banking services for over 21,000 members across Malawi.</p>
+            <a href="#services" class="btn animate-slideInUp">Explore Our Services</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item animate-fadeIn">
+                    <div class="stat-number">21,000+</div>
+                    <div class="stat-label">Members</div>
+                </div>
+                <div class="stat-item animate-fadeIn">
+                    <div class="stat-number">K580M</div>
+                    <div class="stat-label">2024 Surplus</div>
+                </div>
+                <div class="stat-item animate-fadeIn">
+                    <div class="stat-number">35</div>
+                    <div class="stat-label">Years of Service</div>
+                </div>
+                <div class="stat-item animate-fadeIn">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Branches</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Discover how we can help you achieve your financial goals</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card animate-slideInRight">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Banking</h3>
+                    <p>Access your accounts anytime, anywhere with our secure mobile banking platform.</p>
+                    <a href="#" class="btn apply-btn" data-service="Mobile Banking">Apply Now</a>
+                </div>
+                
+                <div class="service-card animate-slideInRight">
+                    <div class="service-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Loans & Credit</h3>
+                    <p>Flexible loan products tailored to meet your personal and business needs.</p>
+                    <a href="#" class="btn apply-btn" data-service="Loans & Credit">Apply Now</a>
+                </div>
+                
+                <div class="service-card animate-slideInRight">
+                    <div class="service-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h3>Savings Accounts</h3>
+                    <p>Build your financial future with our range of savings products, including youth savings.</p>
+                    <a href="#" class="btn apply-btn" data-service="Savings Accounts">Apply Now</a>
+                </div>
+                
+                <div class="service-card animate-slideInRight">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Become a Member</h3>
+                    <p>Join our growing community of over 21,000 members across Malawi.</p>
+                    <a href="#" class="btn apply-btn" data-service="Membership">Register Now</a>
+                </div>
+                
+                <div class="service-card animate-slideInRight">
+                    <div class="service-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3>Women Empowerment</h3>
+                    <p>Special programs like Mai Watsogolo loans to support women's financial independence.</p>
+                    <a href="#" class="btn apply-btn" data-service="Women Empowerment">Learn More</a>
+                </div>
+                
+                <div class="service-card animate-slideInRight">
+                    <div class="service-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3>Community Initiatives</h3>
+                    <p>Environmental and financial literacy programs for sustainable development.</p>
+                    <a href="#news" class="btn">See Events</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SACCO Overview Section -->
+    <section class="sacco-overview" id="sacco-overview">
+        <div class="container">
+            <div class="section-title">
+                <h2>About SACCOs in Malawi</h2>
+                <p>An overview of Savings and Credit Cooperatives, how they work, and common information</p>
+            </div>
+            
+            <div class="sacco-overview-grid">
+                <div class="overview-card animate-fadeIn">
+                    <h3>History and Overview</h3>
+                    <p>SACCOs were introduced in Malawi in the 1970s by the Catholic Clergy. They are member-owned financial cooperatives affiliated with the Malawi Union of Savings and Credit Cooperatives (MUSCCO). Mudi SACCO, established in 1990 and rebranded in 2000, is a key player with over 21,000 members.</p>
+                </div>
+                
+                <div class="overview-card animate-fadeIn">
+                    <h3>How SACCOs Work</h3>
+                    <p>Members pool savings to provide low-interest loans and dividends. They promote financial inclusion, especially for salaried and non-salaried individuals. Benefits include affordable credit, financial literacy, and community development.</p>
+                </div>
+                
+                <div class="overview-card animate-fadeIn">
+                    <h3>Application Process</h3>
+                    <p>To join, fill out an application form, provide ID, phone, and address. Pay an entry fee (varies by SACCO). For loans, submit a business plan or purpose, and await committee approval. Contact your local branch or use our chatbot for details.</p>
+                </div>
+                
+                <div class="overview-card animate-fadeIn">
+                    <h3>Common Issues & Solutions</h3>
+                    <p>Challenges include loan defaults, inadequate capital, governance issues, and manual systems. If money is stuck (e.g., delayed withdrawal), contact your branch manager or MUSCCO. For cybersecurity or data protection, use secure channels and report suspicious activity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Branches Section -->
+    <section class="branches" id="branches">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Branches</h2>
+                <p>Visit us at any of our conveniently located branches across Malawi: Blantyre (Main), Lilongwe (Kanengo), Mzuzu, Zomba, Kasinthula (Chikwawa), Nsanje.</p>
+            </div>
+            
+            <div id="map"></div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common queries about Mudi SACCO and SACCOs in Malawi</p>
+            </div>
+            
+            <div class="faq-list">
+                <div class="faq-item animate-slideInUp">
+                    <div class="faq-question">
+                        How do I apply for membership? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Fill out the application form with your full name, ID, phone, and address. Submit via WhatsApp or visit a branch. Pay the entry fee and await approval.
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-slideInUp">
+                    <div class="faq-question">
+                        What to do if my money is stuck? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Contact your branch manager immediately. Provide transaction details. If unresolved, escalate to MUSCCO or our support at 4307.
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-slideInUp">
+                    <div class="faq-question">
+                        How do SACCOs work in Malawi? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        SACCOs are cooperatives where members save together and access low-interest loans. Governed by MUSCCO, they focus on financial inclusion and community growth.
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-slideInUp">
+                    <div class="faq-question">
+                        What are common SACCO issues? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Issues include loan defaults, poor governance, and manual processes. Mudi SACCO addresses these through digital banking and training programs.
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-slideInUp">
+                    <div class="faq-question">
+                        Where are Mudi SACCO branches? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Blantyre (Main), Lilongwe (Kanengo), Mzuzu, Zomba, Kasinthula (Chikwawa), Nsanje. See the map in Branches section.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News & Events Section -->
+    <section class="news" id="news">
+        <div class="container">
+            <div class="section-title">
+                <h2>News & Events</h2>
+                <p>Stay updated with the latest from Mudi SACCO</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card animate-fadeIn">
+                    <img loading="lazy" src="images/anual meeting.jpg" alt="Surplus Announcement">
+                    <div class="news-content">
+                        <h3>2024 Surplus Hits K580M</h3>
+                        <p>Teamwork and hard work boost Mudi SACCO's financial performance.</p>
+                        <small>August 2024</small>
+                    </div>
+                </div>
+                
+                <div class="news-card animate-fadeIn">
+                    <img loading="lazy" src="images/tree plantation.jpg" alt="Tree Planting">
+                    <div class="news-content">
+                        <h3>Tree Planting Initiative</h3>
+                        <p>Mudi SACCO plants trees at Mudi Catchment for environmental conservation.</p>
+                        <small>March 2023</small>
+                    </div>
+                </div>
+                
+                <div class="news-card animate-fadeIn">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1523287562758-66c7fc58967f?auto=format&fit=crop&w=1350" alt="Vacancies">
+                    <div class="news-content">
+                        <h3>Sales Rep Vacancies</h3>
+                        <p>Commission-based positions open in multiple branches.</p>
+                        <small>May 2025</small>
+                    </div>
+                </div>
+                
+                <div class="news-card animate-fadeIn">
+                    <img loading="lazy" src="images/women.jpeg" alt="Women Empowerment">
+                    <div class="news-content">
+                        <h3>Women Empowerment Program</h3>
+                        <p>Mai Watsogolo loans helping women start businesses.</p>
+                        <small>Ongoing</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financial Tools Section -->
+    <section class="financial-tools" id="financial-tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>Financial Tools</h2>
+                <p>Use our simple loan calculator to estimate repayments</p>
+            </div>
+            
+            <div class="calculator">
+                <div class="form-group">
+                    <label for="loanAmount">Loan Amount (K)</label>
+                    <input type="number" id="loanAmount" placeholder="e.g. 1000000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="interestRate">Interest Rate (% per year)</label>
+                    <input type="number" id="interestRate" placeholder="e.g. 15">
+                </div>
+                
+                <div class="form-group">
+                    <label for="loanTerm">Loan Term (months)</label>
+                    <input type="number" id="loanTerm" placeholder="e.g. 12">
+                </div>
+                
+                <button class="btn" id="calculateLoan">Calculate</button>
+                
+                <div id="loanResult" style="margin-top: 20px; font-weight: bold;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Gallery</h2>
+                <p>Images from our branches, events, and community activities</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item animate-fadeIn">
+                    <img loading="lazy" src="images/mainbranch.jpeg" alt="Branch Opening">
+                    <div class="gallery-caption">Blantyre Main Branch</div>
+                </div>
+                
+                <div class="gallery-item animate-fadeIn">
+                    <img loading="lazy" src="images/tree plantation.jpg" alt="Tree Planting">
+                    <div class="gallery-caption">Tree Planting Event 2023</div>
+                </div>
+                
+                <div class="gallery-item animate-fadeIn">
+                    <img loading="lazy" src="images/anual meeting.jpg" alt="Member Meeting">
+                    <div class="gallery-caption">Annual Member Meeting</div>
+                </div>
+                
+                <div class="gallery-item animate-fadeIn">
+                    <img loading="lazy" src="images/women.jpeg" alt="Women Program">
+                    <div class="gallery-caption">Women Empowerment Workshop</div>
+                </div>
+                
+                <div class="gallery-item animate-fadeIn">
+                    <img loading="lazy" src="images/mobile banking.jpg" alt="Mobile Banking Launch">
+                    <div class="gallery-caption">Mobile Banking Launch</div>
+                </div>
+                
+                <div class="gallery-item animate-fadeIn">
+                    <img loading="lazy" src="images/youth.jpg" alt="Youth Savings">
+                    <div class="gallery-caption">Youth Savings Program</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Members Say</h2>
+                <p>Hear from our satisfied members about their experience with Mudi SACCO</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card animate-slideInRight">
+                    <div class="testimonial-text">
+                        "Mudi SACCO has transformed my financial life. Their loan products helped me expand my small business, and the mobile banking is so convenient!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">CM</div>
+                        <div class="author-info">
+                            <h4>Chimwemwe M.</h4>
+                            <p>Blantyre</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate-slideInRight">
+                    <div class="testimonial-text">
+                        "I've been a member for over 10 years, and the service keeps getting better. The financial literacy training helped me manage my money better."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TK</div>
+                        <div class="author-info">
+                            <h4>Tikondane K.</h4>
+                            <p>Lilongwe</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate-slideInRight">
+                    <div class="testimonial-text">
+                        "The women empowerment program changed my life. The Mai Watsogolo loan helped me start my own tailoring business and become financially independent."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AM</div>
+                        <div class="author-info">
+                            <h4>Amelia B.</h4>
+                            <p>Zomba</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Modals -->
+    <div class="modal" id="applicationModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle">Application Form</h2>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">Note: Your data is handled securely. Email submission opens your default email client—review before sending. For privacy, avoid sharing sensitive info via unsecured channels.</p>
+            <form id="applicationForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" required aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                    <label for="saccoNumber">SACCO Number (if applicable)</label>
+                    <input type="text" id="saccoNumber" name="saccoNumber">
+                </div>
+                
+                <div class="form-group">
+                    <label for="idNumber">ID Number *</label>
+                    <input type="text" id="idNumber" name="idNumber" required aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number * (e.g., +265 984 04 94 20)</label>
+                    <input type="tel" id="phone" name="phone" required aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Postal Address</label>
+                    <textarea id="address" name="address" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="employer">Employer</label>
+                    <input type="text" id="employer" name="employer">
+                </div>
+                
+                <div class="form-group">
+                    <label>Services Applied For</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="fundsTransfer" name="services" value="Funds Transfer">
+                            <label for="fundsTransfer">Funds Transfer</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="balanceInquiry" name="services" value="Balance Inquiry">
+                            <label for="balanceInquiry">Balance Inquiry</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="loanApplication" name="services" value="Loan Application">
+                            <label for="loanApplication">Loan Application</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="terms" name="terms" required aria-required="true">
+                        <label for="terms">I agree to the terms and conditions</label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn" aria-label="Submit via WhatsApp">Submit via WhatsApp</button>
+                <button type="button" class="btn" id="submitEmail" style="margin-left: 10px; background-color: var(--secondary-blue);" aria-label="Submit via Email">Submit via Email</button>
+                <button type="button" class="btn" id="copyClipboard" style="margin-left: 10px; background-color: #555;" aria-label="Copy to Clipboard">Copy to Clipboard</button>
+                <button type="button" class="btn" id="downloadForm" style="margin-left: 10px;" aria-label="Download Filled Form">Download Filled Form</button>
+                <button type="button" class="btn" id="downloadBlankForm" style="margin-left: 10px; background-color: #888;" aria-label="Download Blank Form">Download Blank Form</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loan Application Modal -->
+    <div class="modal" id="loanModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close-modal">&times;</span>
+            <h2>LOAN APPLICATION AND AGREEMENT FORM</h2>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">Note: Your data is handled securely. Email submission opens your default email client—review before sending. For privacy, avoid sharing sensitive info via unsecured channels.</p>
+            <form id="loanApplicationForm">
+                <div class="loan-form-section">
+                    <h4>PART 1: PERSONAL INFORMATION</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required aria-required="true">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="middleName">Middle Name</label>
+                            <input type="text" id="middleName" name="middleName">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="surname">Surname</label>
+                            <input type="text" id="surname" name="surname" required aria-required="true">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" required aria-required="true">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="presentAddress">Present Address</label>
+                            <input type="text" id="presentAddress" name="presentAddress" required aria-required="true">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="idType">ID Type</label>
+                            <select id="idType" name="idType" required aria-required="true">
+                                <option value="">Select ID Type</option>
+                                <option value="National ID">National ID</option>
+                                <option value="Passport">Passport</option>
+                                <option value="Driver's License">Driver's License</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="idNumberLoan">ID Number</label>
+                            <input type="text" id="idNumberLoan" name="idNumberLoan" required aria-required="true">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="homeVillage">Home Village</label>
+                            <input type="text" id="homeVillage" name="homeVillage">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="ta">T/A</label>
+                            <input type="text" id="ta" name="ta">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="district">District</label>
+                            <input type="text" id="district" name="district">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="phoneLoan">Phone number * (e.g., +265xxxxxxxxx)</label>
+                            <input type="tel" id="phoneLoan" name="phoneLoan" required aria-required="true">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="emailLoan">Email</label>
+                            <input type="email" id="emailLoan" name="emailLoan">
+                        </div>
+                    </div>
+                    
+                    <h4>Employer's Details</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="employerName">Employer's Name</label>
+                            <input type="text" id="employerName" name="employerName">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="jobTitle">Job Title</label>
+                            <input type="text" id="jobTitle" name="jobTitle">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="grossSalary">Gross Salary</label>
+                            <input type="number" id="grossSalary" name="grossSalary">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="netSalary">Net Salary</label>
+                            <input type="number" id="netSalary" name="netSalary">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="loan-form-section">
+                    <h4>PART 2: LOAN REQUIREMENT DETAILS</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Loan Types</label>
+                            <select id="loanType" name="loanType" required aria-required="true">
+                                <option value="">Select Loan Type</option>
+                                <option value="Normal Loan (36 Months)">Normal Loan (36 Months)</option>
+                                <option value="Emergency Loan (4 Months)">Emergency Loan (4 Months)</option>
+                                <option value="Special Loan (1 Month)">Special Loan (1 Month)</option>
+                                <option value="Material Loan (24 Months)">Material Loan (24 Months)</option>
+                                <option value="Chakudza Loan (3 Months)">Chakudza Loan (3 Months)</option>
+                                <option value="Group Business Loan (12 Months)">Group Business Loan (12 Months)</option>
+                                <option value="Relief Loan (6 Months)">Relief Loan (6 Months)</option>
+                                <option value="Business Loan (12 Months)">Business Loan (12 Months)</option>
+                                <option value="Fast Loan (12 Months)">Fast Loan (12 Months)</option>
+                                <option value="Sanitation Loan (12 Months)">Sanitation Loan (12 Months)</option>
+                                <option value="Sanitation Business Loan (12 Months)">Sanitation Business Loan (12 Months)</option>
+                                <option value="Fertilizer Loan (12 Months)">Fertilizer Loan (12 Months)</option>
+                                <option value="Loan Refinance">Loan Refinance</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="loanAmountApplied">Loan Amount Applied</label>
+                            <input type="number" id="loanAmountApplied" name="loanAmountApplied" required aria-required="true">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="repaymentPeriod">Repayment Period (months)</label>
+                            <input type="number" id="repaymentPeriod" name="repaymentPeriod" required aria-required="true">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="loanPurpose">Loan Purpose</label>
+                            <textarea id="loanPurpose" name="loanPurpose" rows="3" required aria-required="true"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="otherCollateral">Other Collateral</label>
+                            <input type="text" id="otherCollateral" name="otherCollateral">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="loan-form-section">
+                    <h4>PART 3: LOAN AGREEMENT AND DECLARATION</h4>
+                    
+                    <p>I authorize my employer to deduct loan repayment directly from my salary until full repayment. If my employment ends, I will notify Mudi SACCO within 2 weeks. In case of default, Mudi SACCO may recover money from my shares, deposits, or other means.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="applicantSignature">Applicant's Signature</label>
+                            <input type="text" id="applicantSignature" name="applicantSignature" required aria-required="true">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="signatureDate">Date</label>
+                            <input type="date" id="signatureDate" name="signatureDate" required aria-required="true">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="loanTerms" name="loanTerms" required aria-required="true">
+                        <label for="loanTerms">I have read and understood the Key Fact Statement</label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn" aria-label="Submit via WhatsApp">Submit via WhatsApp</button>
+                <button type="button" class="btn" id="submitLoanEmail" style="margin-left: 10px; background-color: var(--secondary-blue);" aria-label="Submit via Email">Submit via Email</button>
+                <button type="button" class="btn" id="copyLoanClipboard" style="margin-left: 10px; background-color: #555;" aria-label="Copy to Clipboard">Copy to Clipboard</button>
+                <button type="button" class="btn" id="downloadLoanForm" style="margin-left: 10px;" aria-label="Download Filled Form">Download Filled Form</button>
+                <button type="button" class="btn" id="downloadBlankLoanForm" style="margin-left: 10px; background-color: #888;" aria-label="Download Blank Form">Download Blank Form</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chatbot -->
+    <button class="chatbot-button" id="chatbotToggle" aria-label="Open Chatbot">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    
+    <div class="chatbot-modal" id="chatbotModal">
+        <div class="chatbot-header">
+            <h3>Mudi SACCO Chatbot</h3>
+            <span class="close-modal" id="closeChatbot" aria-label="Close Chatbot">&times;</span>
+        </div>
+        <div class="chatbot-body" id="chatBody">
+            <div class="chat-message bot">Hello! I'm the Mudi SACCO chatbot. Ask me about services, branches, how to apply, or SACCOs in Malawi.</div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Type your question..." aria-label="Chat Input">
+            <button id="chatSend" aria-label="Send Message">Send</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About Mudi SACCO</h3>
+                    <p>Founded in 1990 as Malawi Bureau of Standards SACCO, rebranded in 2000. Dedicated to empowering members with secure financial services. CEO: Triza Magreta.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#services">Services</a>
+                    <a href="#branches">Branches</a>
+                    <a href="#about">About Us</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#sacco-overview">SACCO Overview</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#news">News</a>
+                    <a href="#financial-tools">Financial Tools</a>
+                    <a href="#gallery">Gallery</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Main Branch: Blantyre, Malawi</p>
+                    <p><i class="fas fa-phone"></i> 4307</p>
+                    <p><i class="fas fa-envelope"></i> mayendajabulani@gmail.com</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Mudi SACCO. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    // Initialize map
+    function initMap() {
+        const map = L.map('map').setView([-13.9626, 33.7741], 7); // Center on Malawi
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        const branches = [
+            { name: "Blantyre Branch (Main)", lat: -15.7861, lng: 35.0059 },
+            { name: "Lilongwe Branch (Kanengo)", lat: -13.9626, lng: 33.7741 },
+            { name: "Mzuzu Branch", lat: -11.4317, lng: 34.0058 },
+            { name: "Zomba Branch", lat: -15.3766, lng: 35.3357 },
+            { name: "Kasinthula Branch (Chikwawa)", lat: -16.05, lng: 34.8 },
+            { name: "Nsanje Branch", lat: -16.92, lng: 35.26 }
+        ];
+        
+        branches.forEach(branch => {
+            L.marker([branch.lat, branch.lng])
+                .addTo(map)
+                .bindPopup(`<b>${branch.name}</b><br>Visit us for all your banking needs`);
+        });
+    }
+    
+    // Hero slider functionality
+    function initHeroSlider() {
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+    }
+    
+    // Mobile navigation toggle
+    function initMobileNav() {
+        const navToggle = document.getElementById('navToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        navToggle.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                navToggle.querySelector('i').classList.add('fa-bars');
+                navToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+    }
+    
+    // Form Validation Functions
+    function validateForm(formId) {
+        const form = document.getElementById(formId);
+        const phoneInputs = form.querySelectorAll('input[type="tel"]');
+        const emailInputs = form.querySelectorAll('input[type="email"]');
+        const phoneRegex = /^\+265\d{9}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        let valid = true;
+        
+        phoneInputs.forEach(input => {
+            if (input.required && !phoneRegex.test(input.value)) {
+                alert('Please enter a valid Malawi phone number (e.g., +265xxxxxxxxx).');
+                valid = false;
+            }
+        });
+        
+        emailInputs.forEach(input => {
+            if (input.value && !emailRegex.test(input.value)) {
+                alert('Please enter a valid email address.');
+                valid = false;
+            }
+        });
+        
+        return valid;
+    }
+    
+    // Modals and Form Handling
+    function initModals() {
+        const modal = document.getElementById('applicationModal');
+        const loanModal = document.getElementById('loanModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const applyButtons = document.querySelectorAll('.apply-btn');
+        const closeModals = document.querySelectorAll('.close-modal');
+        const applicationForm = document.getElementById('applicationForm');
+        const loanApplicationForm = document.getElementById('loanApplicationForm');
+        const downloadBtn = document.getElementById('downloadForm');
+        const downloadBlankBtn = document.getElementById('downloadBlankForm');
+        const downloadLoanBtn = document.getElementById('downloadLoanForm');
+        const downloadBlankLoanBtn = document.getElementById('downloadBlankLoanForm');
+        const submitEmailBtn = document.getElementById('submitEmail');
+        const submitLoanEmailBtn = document.getElementById('submitLoanEmail');
+        const copyClipboardBtn = document.getElementById('copyClipboard');
+        const copyLoanClipboardBtn = document.getElementById('copyLoanClipboard');
+        const termsCheckbox = document.getElementById('terms');
+        const loanTermsCheckbox = document.getElementById('loanTerms');
+        const submitButtons = document.querySelectorAll('#applicationForm button[type="submit"], #applicationForm #submitEmail, #applicationForm #downloadForm, #loanApplicationForm button[type="submit"], #loanApplicationForm #submitLoanEmail, #loanApplicationForm #downloadLoanForm');
+        
+        // Disable submit buttons until terms agreed
+        function updateButtonStates() {
+            submitButtons.forEach(btn => {
+                btn.disabled = !(termsCheckbox?.checked || loanTermsCheckbox?.checked);
+                btn.style.opacity = btn.disabled ? '0.6' : '1';
+                btn.style.cursor = btn.disabled ? 'not-allowed' : 'pointer';
+            });
+        }
+        
+        if (termsCheckbox) {
+            termsCheckbox.addEventListener('change', updateButtonStates);
+        }
+        if (loanTermsCheckbox) {
+            loanTermsCheckbox.addEventListener('change', updateButtonStates);
+        }
+        updateButtonStates(); // Initial state
+        
+        applyButtons.forEach(button => {
+            button.addEventListener('click', e => {
+                e.preventDefault();
+                const service = button.getAttribute('data-service');
+                
+                if (service === "Loans & Credit") {
+                    modalTitle.textContent = `Apply for ${service}`;
+                    loanModal.style.display = 'block';
+                } else {
+                    modalTitle.textContent = `Apply for ${service}`;
+                    modal.style.display = 'block';
+                }
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        closeModals.forEach(closeBtn => {
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                loanModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        window.addEventListener('click', e => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            if (e.target === loanModal) {
+                loanModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // General application form submission (WhatsApp)
+        applicationForm.addEventListener('submit', e => {
+            e.preventDefault();
+            if (!validateForm('applicationForm')) return;
+            
+            const fullName = document.getElementById('fullName').value || 'N/A';
+            const saccoNumber = document.getElementById('saccoNumber').value || 'N/A';
+            const idNumber = document.getElementById('idNumber').value || 'N/A';
+            const phone = document.getElementById('phone').value || 'N/A';
+            const email = document.getElementById('email').value || 'N/A';
+            const address = document.getElementById('address').value || 'N/A';
+            const employer = document.getElementById('employer').value || 'N/A';
+            const services = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ') || 'N/A';
+            
+            let message = `Application for ${modalTitle.textContent.replace('Apply for ', '')}\n\nFull Name: ${fullName}\nSACCO Number: ${saccoNumber}\nID Number: ${idNumber}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\nEmployer: ${employer}\nServices: ${services}`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/+265 984 04 94 20?text=${encodedMessage}`, '_blank');
+            
+            alert('Form submitted via WhatsApp! Please complete the message in your WhatsApp app.');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            applicationForm.reset();
+            updateButtonStates();
+        });
+        
+        // Loan application form submission (WhatsApp)
+        loanApplicationForm.addEventListener('submit', e => {
+            e.preventDefault();
+            if (!validateForm('loanApplicationForm')) return;
+            
+            const formData = new FormData(loanApplicationForm);
+            let message = "LOAN APPLICATION FORM\n\n";
+            
+            for (let [key, value] of formData.entries()) {
+                message += `${key}: ${value || 'N/A'}\n`;
+            }
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/+265 984 04 94 20?text=${encodedMessage}`, '_blank');
+            
+            alert('Loan form submitted via WhatsApp! Please complete the message in your WhatsApp app.');
+            loanModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            loanApplicationForm.reset();
+            updateButtonStates();
+        });
+        
+        // Email submission for general application
+        submitEmailBtn.addEventListener('click', () => {
+            if (!validateForm('applicationForm')) return;
+            
+            const fullName = document.getElementById('fullName').value || 'N/A';
+            const saccoNumber = document.getElementById('saccoNumber').value || 'N/A';
+            const idNumber = document.getElementById('idNumber').value || 'N/A';
+            const phone = document.getElementById('phone').value || 'N/A';
+            const email = document.getElementById('email').value || 'N/A';
+            const address = document.getElementById('address').value || 'N/A';
+            const employer = document.getElementById('employer').value || 'N/A';
+            const services = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ') || 'N/A';
+            
+            let body = `Application for ${modalTitle.textContent.replace('Apply for ', '')}\n\nFull Name: ${fullName}\nSACCO Number: ${saccoNumber}\nID Number: ${idNumber}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\nEmployer: ${employer}\nServices: ${services}`;
+            
+            const encodedSubject = encodeURIComponent('Mudi SACCO Application');
+            const encodedBody = encodeURIComponent(body);
+            window.open(`mailto:mayendajabulani@gmail.com?subject=${encodedSubject}&body=${encodedBody}`, '_blank');
+        });
+        
+        // Email submission for loan application
+        submitLoanEmailBtn.addEventListener('click', () => {
+            if (!validateForm('loanApplicationForm')) return;
+            
+            const formData = new FormData(loanApplicationForm);
+            let body = "LOAN APPLICATION FORM\n\n";
+            
+            for (let [key, value] of formData.entries()) {
+                body += `${key}: ${value || 'N/A'}\n`;
+            }
+            
+            const encodedSubject = encodeURIComponent('Mudi SACCO Loan Application');
+            const encodedBody = encodeURIComponent(body);
+            window.open(`mailto:mayendajabulani@gmail.com?subject=${encodedSubject}&body=${encodedBody}`, '_blank');
+        });
+        
+        // Copy to Clipboard for general form
+        copyClipboardBtn.addEventListener('click', () => {
+            if (!validateForm('applicationForm')) return;
+            
+            const fullName = document.getElementById('fullName').value || 'N/A';
+            const saccoNumber = document.getElementById('saccoNumber').value || 'N/A';
+            const idNumber = document.getElementById('idNumber').value || 'N/A';
+            const phone = document.getElementById('phone').value || 'N/A';
+            const email = document.getElementById('email').value || 'N/A';
+            const address = document.getElementById('address').value || 'N/A';
+            const employer = document.getElementById('employer').value || 'N/A';
+            const services = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ') || 'N/A';
+            
+            let text = `Subject: Mudi SACCO Application\n\nApplication for ${modalTitle.textContent.replace('Apply for ', '')}\n\nFull Name: ${fullName}\nSACCO Number: ${saccoNumber}\nID Number: ${idNumber}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\nEmployer: ${employer}\nServices: ${services}`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Form data copied to clipboard! Paste into your email client and send to mayendajabulani@gmail.com.');
+            }).catch(err => {
+                alert('Failed to copy to clipboard. Please manually copy the form data: ' + text);
+            });
+        });
+        
+        // Copy to Clipboard for loan form
+        copyLoanClipboardBtn.addEventListener('click', () => {
+            if (!validateForm('loanApplicationForm')) return;
+            
+            const formData = new FormData(loanApplicationForm);
+            let text = "Subject: Mudi SACCO Loan Application\n\nLOAN APPLICATION FORM\n\n";
+            
+            for (let [key, value] of formData.entries()) {
+                text += `${key}: ${value || 'N/A'}\n`;
+            }
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Form data copied to clipboard! Paste into your email client and send to mayendajabulani@gmail.com.');
+            }).catch(err => {
+                alert('Failed to copy to clipboard. Please manually copy the form data: ' + text);
+            });
+        });
+        
+        // Download filled general form
+        downloadBtn.addEventListener('click', () => {
+            if (!validateForm('applicationForm')) return;
+            
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = 'Generating...';
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Add logo
+            doc.addImage('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', 'JPEG', 10, 10, 50, 25);
+            
+            // Title
+            doc.setFontSize(20);
+            doc.setTextColor(26, 82, 118);
+            doc.text(modalTitle.textContent, 105, 25, { align: 'center' });
+            
+            // Form border
+            doc.setDrawColor(0);
+            doc.setLineWidth(0.5);
+            doc.rect(10, 40, 190, 230);
+            
+            // Fields with data
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            
+            const fullName = document.getElementById('fullName').value || '________';
+            doc.text('Full Name:', 20, 50);
+            doc.setLineWidth(0.2);
+            doc.line(60, 55, 190, 55);
+            doc.text(fullName, 60, 50);
+            
+            const saccoNumber = document.getElementById('saccoNumber').value || '________';
+            doc.text('SACCO Number (if applicable):', 20, 65);
+            doc.line(110, 70, 190, 70);
+            doc.text(saccoNumber, 110, 65);
+            
+            const idNumber = document.getElementById('idNumber').value || '________';
+            doc.text('ID Number:', 20, 80);
+            doc.line(60, 85, 190, 85);
+            doc.text(idNumber, 60, 80);
+            
+            const phone = document.getElementById('phone').value || '________';
+            doc.text('Phone Number:', 20, 95);
+            doc.line(70, 100, 190, 100);
+            doc.text(phone, 70, 95);
+            
+            const email = document.getElementById('email').value || '________';
+            doc.text('Email Address:', 20, 110);
+            doc.line(70, 115, 190, 115);
+            doc.text(email, 70, 110);
+            
+            const address = document.getElementById('address').value || '________';
+            doc.text('Postal Address:', 20, 125);
+            doc.rect(70, 120, 120, 30);
+            doc.text(address, 72, 130, { maxWidth: 116 });
+            
+            const employer = document.getElementById('employer').value || '________';
+            doc.text('Employer:', 20, 160);
+            doc.line(60, 165, 190, 165);
+            doc.text(employer, 60, 160);
+            
+            doc.text('Services Applied For:', 20, 175);
+            const services = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ') || 'None selected';
+            doc.text(services, 30, 185, { maxWidth: 160 });
+            
+            doc.text('I agree to the terms and conditions [X]', 20, 220);
+            
+            // Footer
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.text('Mudi SACCO | Lali Lubani Road, Blantyre | 4307 | mayendajabulani@gmail.com', 20, 280, { align: 'center' });
+            doc.text('Submit this filled form via email to mayendajabulani@gmail.com or WhatsApp to 4307.', 20, 285, { align: 'center' });
+            
+            doc.save('mudi_sacco_application_form_filled.pdf');
+            
+            downloadBtn.disabled = false;
+            downloadBtn.textContent = 'Download Filled Form';
+        });
+        
+        // Download blank general form
+        downloadBlankBtn.addEventListener('click', () => {
+            downloadBlankBtn.disabled = true;
+            downloadBlankBtn.textContent = 'Generating...';
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Add logo
+            doc.addImage('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', 'JPEG', 10, 10, 50, 25);
+            
+            // Title
+            doc.setFontSize(20);
+            doc.setTextColor(26, 82, 118);
+            doc.text(modalTitle.textContent, 105, 25, { align: 'center' });
+            
+            // Form border
+            doc.setDrawColor(0);
+            doc.setLineWidth(0.5);
+            doc.rect(10, 40, 190, 230);
+            
+            // Fields
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            
+            doc.text('Full Name: ________', 20, 50);
+            doc.setLineWidth(0.2);
+            doc.line(60, 55, 190, 55);
+            
+            doc.text('SACCO Number (if applicable): ________', 20, 65);
+            doc.line(110, 70, 190, 70);
+            
+            doc.text('ID Number: ________', 20, 80);
+            doc.line(60, 85, 190, 85);
+            
+            doc.text('Phone Number: ________', 20, 95);
+            doc.line(70, 100, 190, 100);
+            
+            doc.text('Email Address: ________', 20, 110);
+            doc.line(70, 115, 190, 115);
+            
+            doc.text('Postal Address: ________', 20, 125);
+            doc.rect(70, 120, 120, 30);
+            
+            doc.text('Employer: ________', 20, 160);
+            doc.line(60, 165, 190, 165);
+            
+            doc.text('Services Applied For: ________', 20, 175);
+            doc.text('Funds Transfer [ ]   Balance Inquiry [ ]   Loan Application [ ]', 30, 185, { maxWidth: 160 });
+            
+            doc.text('I agree to the terms and conditions [ ]', 20, 220);
+            
+            // Footer
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.text('Mudi SACCO | Lali Lubani Road, Blantyre | 4307 | mayendajabulani@gmail.com', 20, 280, { align: 'center' });
+            doc.text('Fill this form manually, scan it, and send via WhatsApp to 4307 or email to mayendajabulani@gmail.com.', 20, 285, { align: 'center' });
+            
+            doc.save('mudi_sacco_application_form_blank.pdf');
+            
+            downloadBlankBtn.disabled = false;
+            downloadBlankBtn.textContent = 'Download Blank Form';
+        });
+        
+        // Download filled loan form
+        downloadLoanBtn.addEventListener('click', () => {
+            if (!validateForm('loanApplicationForm')) return;
+            
+            downloadLoanBtn.disabled = true;
+            downloadLoanBtn.textContent = 'Generating...';
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Add logo
+            doc.addImage('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', 'JPEG', 10, 10, 50, 25);
+            
+            // Title
+            doc.setFontSize(20);
+            doc.setTextColor(26, 82, 118);
+            doc.text('LOAN APPLICATION AND AGREEMENT FORM', 105, 25, { align: 'center' });
+            
+            // Header fields
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            doc.text('Date: ' + (document.getElementById('signatureDate').value || '________'), 20, 40);
+            doc.text('Branch: ________', 120, 40);
+            doc.text('SACCO Number: ________', 20, 50);
+            doc.text('Payroll Number: ________', 120, 50);
+            
+            // Personal Information
+            doc.setFontSize(14);
+            doc.setTextColor(26, 82, 118);
+            doc.text('PART 1: PERSONAL INFORMATION', 20, 65);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            
+            const firstName = document.getElementById('firstName').value || '________';
+            doc.text('First Name: ' + firstName, 20, 75);
+            doc.line(50, 80, 70, 80);
+            
+            const middleName = document.getElementById('middleName').value || '________';
+            doc.text('Middle Name: ' + middleName, 80, 75);
+            doc.line(110, 80, 130, 80);
+            
+            const surname = document.getElementById('surname').value || '________';
+            doc.text('Surname: ' + surname, 150, 75);
+            doc.line(175, 80, 190, 80);
+            
+            const dob = document.getElementById('dob').value || 'DD/MM/YYYY';
+            doc.text('Date of Birth: ' + dob, 20, 85);
+            
+            const presentAddress = document.getElementById('presentAddress').value || '________';
+            doc.text('Present Address: ' + presentAddress, 20, 95, { maxWidth: 170 });
+            
+            const idType = document.getElementById('idType').value || '________';
+            doc.text('ID Type: ' + idType, 20, 105);
+            
+            const idNumberLoan = document.getElementById('idNumberLoan').value || '________';
+            doc.text('ID Number: ' + idNumberLoan, 100, 105);
+            
+            const homeVillage = document.getElementById('homeVillage').value || '________';
+            doc.text('Home Village: ' + homeVillage, 20, 115);
+            
+            const ta = document.getElementById('ta').value || '________';
+            doc.text('T/A: ' + ta, 80, 115);
+            
+            const district = document.getElementById('district').value || '________';
+            doc.text('District: ' + district, 130, 115);
+            
+            const phoneLoan = document.getElementById('phoneLoan').value || '________';
+            doc.text('Phone number: ' + phoneLoan, 20, 125);
+            
+            const emailLoan = document.getElementById('emailLoan').value || '________';
+            doc.text('Email: ' + emailLoan, 100, 125);
+            
+            doc.setFontSize(14);
+            doc.setTextColor(26, 82, 118);
+            doc.text("Employer's Details", 20, 140);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            
+            const employerName = document.getElementById('employerName').value || '________';
+            doc.text("Employer's Name: " + employerName, 20, 150);
+            
+            const jobTitle = document.getElementById('jobTitle').value || '________';
+            doc.text('Job Title: ' + jobTitle, 120, 150);
+            
+            const grossSalary = document.getElementById('grossSalary').value || '________';
+            doc.text('Gross Salary: ' + grossSalary, 20, 160);
+            
+            const netSalary = document.getElementById('netSalary').value || '________';
+            doc.text('Net Salary: ' + netSalary, 100, 160);
+            
+            // Loan Requirements
+            doc.setFontSize(14);
+            doc.setTextColor(26, 82, 118);
+            doc.text('PART 2: LOAN REQUIREMENT DETAILS', 20, 175);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            
+            const loanType = document.getElementById('loanType').value || '________';
+            doc.text('Loan Type: ' + loanType, 20, 185);
+            
+            const loanAmountApplied = document.getElementById('loanAmountApplied').value || '________';
+            doc.text('Loan Amount Applied: ' + loanAmountApplied, 20, 195);
+            
+            const repaymentPeriod = document.getElementById('repaymentPeriod').value || '________';
+            doc.text('Repayment Period (months): ' + repaymentPeriod, 100, 195);
+            
+            const loanPurpose = document.getElementById('loanPurpose').value || '________';
+            doc.text('Loan Purpose: ' + loanPurpose, 20, 205, { maxWidth: 170 });
+            
+            const otherCollateral = document.getElementById('otherCollateral').value || '________';
+            doc.text('Other Collateral: ' + otherCollateral, 20, 220);
+            
+            // Loan Agreement
+            doc.setFontSize(14);
+            doc.setTextColor(26, 82, 118);
+            doc.text('PART 3: LOAN AGREEMENT AND DECLARATION', 20, 235);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            doc.text('I authorize my employer to deduct loan repayment directly from my salary until full repayment.', 20, 245, { maxWidth: 170 });
+            
+            const applicantSignature = document.getElementById('applicantSignature').value || '________';
+            doc.text("Applicant's Signature: " + applicantSignature, 20, 260);
+            
+            const signatureDate = document.getElementById('signatureDate').value || '________';
+            doc.text('Date: ' + signatureDate, 120, 260);
+            
+            // Footer
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.text('Mudi SACCO | Lali Lubani Road, Blantyre | 4307 | mayendajabulani@gmail.com', 20, 280, { align: 'center' });
+            doc.text('Submit this filled form via email to mayendajabulani@gmail.com or WhatsApp to 4307.', 20, 285, { align: 'center' });
+            
+            doc.save('mudi_sacco_loan_application_form_filled.pdf');
+            
+            downloadLoanBtn.disabled = false;
+            downloadLoanBtn.textContent = 'Download Filled Form';
+        });
+        
+        // Download blank loan form
+        downloadBlankLoanBtn.addEventListener('click', () => {
+            downloadBlankLoanBtn.disabled = true;
+            downloadBlankLoanBtn.textContent = 'Generating...';
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Add logo
+            doc.addImage('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', 'JPEG', 10, 10, 50, 25);
+            
+            // Title
+            doc.setFontSize(20);
+            doc.setTextColor(26, 82, 118);
+            doc.text('LOAN APPLICATION AND AGREEMENT FORM', 105, 25, { align: 'center' });
+            
+            // Header fields
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            doc.text('Date: ________', 20, 40);
+            doc.text('Branch: ________', 120, 40);
+            doc.text('SACCO Number: ________', 20, 50);
+            doc.text('Payroll Number: ________', 120, 50);
+            
+            // Personal Information
+            doc.setFontSize(14);
+            doc.setTextColor(26, 82, 118);
+            doc.text('PART 1: PERSONAL INFORMATION', 20, 65);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            doc.text('First Name: ________', 20, 75);
+            doc.text('Middle Name: ________', 80, 75);
+            doc.text('Surname: ________', 150, 75);
+            
+            doc.text('Date of Birth: DD/MM/YYYY', 20, 85);
+            doc.text('Present Address: ________', 20, 95);
+            doc.text('ID Type: ________', 20, 105);
+            doc.text('ID Number: ________', 100, 105);
+            doc.text('Home Village: ________', 20, 115);
+            doc.text('T/A: ________', 80, 115);
+            doc.text('District: ________', 130, 115);
+            doc.text('Phone number: ________', 20, 125);
+            doc.text('Email: ________', 100, 125);
+            
+            doc.setFontSize(14);
+            doc.setTextColor(26, 82, 118);
+            doc.text("Employer's Details", 20, 140);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            doc.text("Employer's Name: ________", 20, 150);
+            doc.text('Job Title: ________', 120, 150);
+            doc.text('Gross Salary: ________', 20, 160);
+            doc.text('Net Salary: ________', 100, 160);
+            
+            // Loan Requirements
+            doc.setFontSize(14);
+            doc.setTextColor(26, 82, 118);
+            doc.text('PART 2: LOAN REQUIREMENT DETAILS', 20, 175);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            doc.text('Loan Types (tick one):', 20, 185);
+            
+            const loanTypes = [
+                'Normal Loan (36 Months) [ ]',
+                'Emergency Loan (4 Months) [ ]',
+                'Special Loan (1 Month) [ ]',
+                'Material Loan (24 Months) [ ]',
+                'Chakudza Loan (3 Months) [ ]',
+                'Group Business Loan (12 Months) [ ]',
+                'Relief Loan (6 Months) [ ]',
+                'Business Loan (12 Months) [ ]',
+                'Fast Loan (12 Months) [ ]',
+                'Sanitation Loan (12 Months) [ ]',
+                'Sanitation Business Loan (12 Months) [ ]',
+                'Fertilizer Loan (12 Months) [ ]',
+                'Loan Refinance [ ]'
+            ];
+            
+            let yPos = 195;
+            loanTypes.forEach((type, index) => {
+                if (index % 2 === 0 && index > 0) yPos += 10;
+                const xPos = index % 2 === 0 ? 20 : 110;
+                doc.text(type, xPos, yPos);
+                if (index % 2 !== 0) yPos += 10;
+            });
+            
+            yPos += 10;
+            doc.text('Loan Amount Applied: ________', 20, yPos);
+            yPos += 10;
+            doc.text('Repayment Period: ________', 20, yPos);
+            yPos += 10;
+            doc.text('Loan Purpose: ________', 20, yPos);
+            yPos += 15;
+            doc.text('Other Collateral: ________', 20, yPos);
+            
+            // Loan Agreement
+            doc.setFontSize(14);
+            doc.setTextColor(26, 82, 118);
+            doc.text('PART 3: LOAN AGREEMENT AND DECLARATION', 20, yPos + 15);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(51, 51, 51);
+            doc.text('I authorize my employer to deduct loan repayment directly from my salary until full repayment.', 20, yPos + 25, { maxWidth: 170 });
+            doc.text("Applicant's Signature: ________", 20, yPos + 40);
+            doc.text('Date: ________', 120, yPos + 40);
+            
+            // Footer
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.text('Mudi SACCO | Lali Lubani Road, Blantyre | 4307 | mayendajabulani@gmail.com', 20, yPos + 60, { align: 'center' });
+            doc.text('Fill this form manually, scan it, and send via WhatsApp to 4307 or email to mayendajabulani@gmail.com.', 20, yPos + 65, { align: 'center' });
+            
+            doc.save('mudi_sacco_loan_application_form_blank.pdf');
+            
+            downloadBlankLoanBtn.disabled = false;
+            downloadBlankLoanBtn.textContent = 'Download Blank Form';
+        });
+    }
+    
+    // FAQ Accordion
+    function initFAQ() {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                question.querySelector('i').classList.toggle('fa-chevron-down');
+                question.querySelector('i').classList.toggle('fa-chevron-up');
+            });
+        });
+    }
+    
+    // Loan Calculator
+    function initCalculator() {
+        const calculateBtn = document.getElementById('calculateLoan');
+        const resultDiv = document.getElementById('loanResult');
+        
+        calculateBtn.addEventListener('click', () => {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const rate = parseFloat(document.getElementById('interestRate').value) / 100 / 12;
+            const term = parseFloat(document.getElementById('loanTerm').value);
+            
+            if (isNaN(amount) || isNaN(rate) || isNaN(term)) {
+                resultDiv.textContent = 'Please enter valid numbers.';
+                return;
+            }
+            
+            const monthlyPayment = (amount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
+            resultDiv.textContent = `Monthly Payment: K${monthlyPayment.toFixed(2)} (estimate, excludes fees)`;
+        });
+    }
+    
+    // Chatbot Functionality (with added response for email submission)
+    function initChatbot() {
+        const toggleBtn = document.getElementById('chatbotToggle');
+        const modal = document.getElementById('chatbotModal');
+        const closeBtn = document.getElementById('closeChatbot');
+        const sendBtn = document.getElementById('chatSend');
+        const input = document.getElementById('chatInput');
+        const body = document.getElementById('chatBody');
+        
+        toggleBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            input.focus();
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', e => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        function addMessage(text, className) {
+            const msg = document.createElement('div');
+            msg.classList.add('chat-message', className);
+            msg.textContent = text;
+            body.appendChild(msg);
+            body.scrollTop = body.scrollHeight;
+        }
+        
+        sendBtn.addEventListener('click', () => {
+            const userText = input.value.trim().toLowerCase();
+            if (!userText) return;
+            
+            addMessage(userText, 'user');
+            input.value = '';
+            input.focus();
+            
+            let response = "Sorry, I didn't understand that. Try asking about services, branches, or how to apply.";
+            
+            if (userText.includes('hey') || userText.includes('hello') || userText.includes('hi') || userText.includes('how are you')) {
+                response = "Hello! I'm the Mudi SACCO assistant. How can I help you today? You can ask me about our services, branches, membership, loans, or anything about SACCOs in Malawi.";
+            } else if (userText.includes('apply') || userText.includes('join') || userText.includes('membership') || userText.includes('application process')) {
+                response = "To apply for membership at Mudi SACCO: 1. Fill out the form with your name, ID, phone, address, and other details. 2. Submit via WhatsApp to 4307, email to mayendajabulani@gmail.com, or visit a branch. 3. Pay entry fee. For loans, provide purpose/business plan and await approval from the committee. Use the Apply Now buttons on our site or download the form for manual filling.";
+            } else if (userText.includes('money stuck') || userText.includes('withdrawal issue') || userText.includes('delayed') || userText.includes('hung money')) {
+                response = "If your money is stuck or delayed at Mudi SACCO: 1. Contact your branch manager with transaction details. Common causes include system delays, verification issues, public holidays, or economic challenges. 2. If unresolved, call 4307 or email mayendajabulani@gmail.com. 3. Escalate to MUSCCO if needed.";
+            } else if (userText.includes('branches') || userText.includes('locations') || userText.includes('contacts') || userText.includes('where are you')) {
+                response = "Mudi SACCO branches and contacts: Blantyre (Main/Chichiri) - 0991649455, +265 187 20 91; Lilongwe - 0991649492; Zomba - 0992884517; Mzuzu - 0888314781; Chikwawa (Kasinthula); Nsanje. Check the map on our Branches section.";
+            } else if (userText.includes('services') || userText.includes('what do you offer') || userText.includes('products')) {
+                response = "Mudi SACCO services include savings products, loans (e.g., Mai Watsogolo for women), financial counseling, mobile banking, and community initiatives like tree planting and financial literacy.";
+            } else if (userText.includes('history') || userText.includes('about mudi') || userText.includes('leadership') || userText.includes('ceo') || userText.includes('established')) {
+                response = "Mudi SACCO, established in 1990, rebranded in 2000, has over 21,000 members and 7 branches. CEO: Triza Magreta. 2024 surplus: K580M. Affiliated with MUSCCO and licensed by Reserve Bank of Malawi.";
+            } else if (userText.includes('saccos in malawi') || userText.includes('how saccos work') || userText.includes('what is a sacco')) {
+                response = "SACCOs in Malawi are member-owned cooperatives for savings and low-interest loans, governed by MUSCCO. Benefits include financial inclusion and dividends.";
+            } else if (userText.includes('women') || userText.includes('empowerment') || userText.includes('mai watsogolo') || userText.includes('female')) {
+                response = "Mai Watsogolo offers loans and training for women to start businesses and achieve financial independence. Apply via the Women Empowerment service.";
+            } else if (userText.includes('loan') || userText.includes('credit') || userText.includes('borrow') || userText.includes('interest rate')) {
+                response = "Mudi SACCO offers various loans. Apply via form, provide purpose/business plan. Use our calculator to estimate repayments.";
+            } else if (userText.includes('common issues') || userText.includes('problems') || userText.includes('administration enquiry') || userText.includes('complaint')) {
+                response = "Common issues: Loan defaults, delayed withdrawals, governance. Contact branch, call 4307, or email mayendajabulani@gmail.com.";
+            } else if (userText.includes('contact') || userText.includes('support') || userText.includes('help') || userText.includes('phone number')) {
+                response = "Contact: 4307, mayendajabulani@gmail.com, or visit a branch (Blantyre, Lilongwe, Zomba, Mzuzu, Chikwawa, Nsanje).";
+            } else if (userText.includes('initiatives') || userText.includes('community') || userText.includes('promotion') || userText.includes('event')) {
+                response = "Initiatives include tree planting, financial literacy, and Mai Watsogolo for women. Promotions: Tikondwere 35 (K5M prize), Chaka Chomanga.";
+            } else if (userText.includes('performance') || userText.includes('surplus') || userText.includes('financial') || userText.includes('results')) {
+                response = "2024 surplus: K580M (62% increase from 2023). Ranked best SACCO in Southern Region.";
+            } else if (userText.includes('save') || userText.includes('savings') || userText.includes('deposit') || userText.includes('investment')) {
+                response = "Savings products include shares, deposits, and youth accounts. Earn dividends and secure loans.";
+            } else if (userText.includes('mobile banking') || userText.includes('digital') || userText.includes('online') || userText.includes('app')) {
+                response = "Mobile banking offers account access, balance checks, and fund transfers. Register at a branch.";
+            } else if (userText.includes('requirements') || userText.includes('documents') || userText.includes('need to apply')) {
+                response = "Membership requires ID, proof of address, photos, application form, and initial deposit. Loans need pay slips or business plans.";
+            } else if (userText.includes('thank') || userText.includes('thanks') || userText.includes('appreciate')) {
+                response = "You're welcome! Anything else I can help with?";
+            } else if (userText.includes('bye') || userText.includes('goodbye') || userText.includes('see you')) {
+                response = "Thank you for chatting. Have a great day!";
+            } else if (userText.includes('download') || userText.includes('form') || userText.includes('pdf') || userText.includes('blank form')) {
+                response = "To download forms: Use 'Download Filled Form' for your data or 'Download Blank Form' for an empty version. Print, fill, and submit via WhatsApp or email.";
+            } else if (userText.includes('email') || userText.includes('send email') || userText.includes('submit email')) {
+                response = "Use 'Submit via Email' to open your email client with pre-filled data, or 'Copy to Clipboard' to paste manually. Send to mayendajabulani@gmail.com.";
+            }
+            
+            setTimeout(() => {
+                addMessage(response, 'bot');
+            }, 500);
+        });
+        
+        input.addEventListener('keypress', e => {
+            if (e.key === 'Enter') sendBtn.click();
+        });
+    }
+    
+    // Back to Top
+    function initBackToTop() {
+        const btn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            btn.style.display = window.scrollY > 300 ? 'block' : 'none';
+        });
+        
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    
+    // Animation on scroll
+    function initAnimations() {
+        const animatedElements = document.querySelectorAll('.animate-fadeIn, .animate-slideInUp, .animate-slideInRight');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.visibility = 'visible';
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animatedElements.forEach(el => {
+            el.style.visibility = 'hidden';
+            observer.observe(el);
+        });
+    }
+    
+    // Initialize everything
+    document.addEventListener('DOMContentLoaded', () => {
+        initMap();
+        initHeroSlider();
+        initMobileNav();
+        initModals();
+        initFAQ();
+        initCalculator();
+        initChatbot();
+        initBackToTop();
+        initAnimations();
+    });
+</script>
