@@ -19,6 +19,8 @@
             --white: #ffffff;
             --light-gray: #f5f5f5;
             --dark-gray: #333333;
+            --whatsapp-green: #25D366;
+            --whatsapp-dark-green: #128C7E;
         }
        
         * {
@@ -379,6 +381,50 @@
             color: var(--dark-gray);
         }
        
+        /* WhatsApp Button in Services Section */
+        .services-whatsapp {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            border-radius: 15px;
+            color: var(--white);
+        }
+        
+        .services-whatsapp h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .services-whatsapp p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--whatsapp-green);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: var(--whatsapp-dark-green);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .whatsapp-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+       
         /* SACCO Overview Section - REDESIGNED */
         .sacco-overview {
             padding: 100px 0;
@@ -729,7 +775,7 @@
        
         .board-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
        
@@ -776,6 +822,7 @@
         .profile-card p.bio {
             margin-bottom: 20px;
             color: var(--dark-gray);
+            font-size: 0.9rem;
         }
        
         .social-links-profile {
@@ -801,6 +848,53 @@
             background-color: var(--gold);
             color: var(--white);
             transform: translateY(-5px);
+        }
+       
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background-color: var(--whatsapp-green);
+            color: var(--white);
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            animation: pulse-whatsapp 2s infinite;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            background-color: var(--whatsapp-dark-green);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .whatsapp-icon {
+            font-size: 1.8rem;
+            margin-right: 8px;
+        }
+        
+        .whatsapp-text {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        @keyframes pulse-whatsapp {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
         }
        
         /* Chatbot Styles */
@@ -1363,6 +1457,35 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            /* WhatsApp Button Responsive */
+            .whatsapp-float {
+                bottom: 90px;
+                right: 20px;
+                padding: 10px 15px;
+            }
+            
+            .whatsapp-text {
+                display: none;
+            }
+            
+            .whatsapp-icon {
+                margin-right: 0;
+                font-size: 1.5rem;
+            }
+            
+            .services-whatsapp {
+                padding: 15px;
+            }
+            
+            .services-whatsapp h3 {
+                font-size: 1.3rem;
+            }
+            
+            /* Board Grid Responsive */
+            .board-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
         }
        
         @media (max-width: 576px) {
@@ -1388,6 +1511,11 @@
            
             .modal-content {
                 padding: 30px 20px;
+            }
+            
+            /* Board Grid Mobile */
+            .board-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1507,7 +1635,7 @@
                     <div class="stat-label">Members</div>
                 </div>
                 <div class="stat-item animate-fadeIn">
-                    <div class="stat-number">K580M</div>
+                    <div class="stat-number">MK580</div>
                     <div class="stat-label">2024 Surplus</div>
                 </div>
                 <div class="stat-item animate-fadeIn">
@@ -1584,6 +1712,15 @@
                     <a href="#news" class="btn">See Events</a>
                 </div>
             </div>
+            
+            <!-- WhatsApp Contact Section -->
+            <div class="services-whatsapp animate-fadeIn">
+                <h3>Need Immediate Assistance?</h3>
+                <p>Chat with us directly on WhatsApp for quick responses to your queries about our services</p>
+                <a href="https://wa.me/265887763358" class="whatsapp-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Message Us on WhatsApp
+                </a>
+            </div>
         </div>
     </section>
     <!-- SACCO Overview Section - REDESIGNED -->
@@ -1619,15 +1756,7 @@
                     </div>
                 </div>
                
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="timeline-icon"><i class="fas fa-exclamation-circle"></i></span>
-                        <h3>Common Issues & Solutions</h3>
-                        <p>Challenges include loan defaults, inadequate capital, governance issues, and manual systems. If money is stuck (e.g., delayed withdrawal), contact your branch manager or MUSCCO. For cybersecurity or data protection, use secure channels and report suspicious activity.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+               
     </section>
     <!-- Branches Section -->
     <section class="branches" id="branches">
@@ -1874,10 +2003,10 @@
            
             <div class="board-grid">
                 <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=300" alt="Triza Magreta">
+                    <img class="profile-img" src="images/ceo.jpeg" alt="Triza Magreta">
                     <h3>Triza Magreta</h3>
                     <p class="position">CEO</p>
-                    <p class="bio">With over 20 years in financial services, Triza leads Mudi SACCO with a focus on innovation and member empowerment.</p>
+                    <p class="bio"></p>
                     <div class="social-links-profile">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1886,10 +2015,10 @@
                 </div>
                
                 <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="https://images.unsplash.com/photo-1556155092-490a6e55a637?auto=format&fit=crop&w=300" alt="John Doe">
-                    <h3>John Doe</h3>
-                    <p class="position">Chairperson</p>
-                    <p class="bio">Experienced in cooperative governance, John oversees strategic direction for sustainable growth.</p>
+                    <img class="profile-img" src="images/Charles Chavi. BOD Member.jpeg" alt="John Doe">
+                    <h3> BOD Member</h3>
+                    <p class="position">BOD member</p>
+                    <p class="bio"></p>
                     <div class="social-links-profile">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1898,34 +2027,22 @@
                 </div>
                
                 <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300" alt="Jane Smith">
-                    <h3>Jane Smith</h3>
+                    <img class="profile-img" src="images/Mr. Vincent Banda, BOD Member.jpeg" alt="Jane Smith">
+                    <h3>Mr. Vincent Banda</h3>
+                    <p class="position">BOD Member</p>
+                    <p class="bio"></p>
+                    <div class="social-links-profile">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+               
+                <div class="profile-card animate-fadeIn">
+                    <img class="profile-img" src="images/Vice Chairperson, Ms Euphrasia Nazombe.jpeg" alt="Michael Johnson">
+                    <h3>Ms Euphrasia Nazombe</h3>
                     <p class="position">Vice Chairperson</p>
-                    <p class="bio">Specializing in finance, Jane champions women empowerment and community initiatives.</p>
-                    <div class="social-links-profile">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    </div>
-                </div>
-               
-                <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="https://images.unsplash.com/photo-1546961329-78bef0414d1c?auto=format&fit=crop&w=300" alt="Michael Johnson">
-                    <h3>Michael Johnson</h3>
-                    <p class="position">Treasurer</p>
-                    <p class="bio">Expert in risk management, Michael ensures financial stability and compliance.</p>
-                    <div class="social-links-profile">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    </div>
-                </div>
-               
-                <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300" alt="Sarah Lee">
-                    <h3>Sarah Lee</h3>
-                    <p class="position">Secretary</p>
-                    <p class="bio">Handles administrative excellence and member communications.</p>
+                    <p class="bio">.</p>
                     <div class="social-links-profile">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -2292,7 +2409,7 @@
                     <h3>Contact Info</h3>
                     <p><i class="fas fa-map-marker-alt"></i> Main Branch: Blantyre, Malawi</p>
                     <p><i class="fas fa-phone"></i> 4307</p>
-                    <p><i class="fas fa-envelope"></i> mayendajabulani@gmail.com</p>
+                    <p><i class="fas fa-envelope"></i> </p>
                    
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -2312,6 +2429,13 @@
     <button class="back-to-top" id="backToTop" aria-label="Back to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
+    
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/265887763358" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp whatsapp-icon"></i>
+        <span class="whatsapp-text">Chat with Us</span>
+    </a>
+    
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     // Initialize map
@@ -2478,18 +2602,7 @@
         document.getElementById('submitEmail').addEventListener('click', function() {
             if (!validateForm('applicationForm')) return;
            
-            const formData = new FormData(applicationForm);
-            let message = 'Application Form Submission\n\n';
-            formData.forEach((value, key) => {
-                if (key === 'services') {
-                    message += `Services: ${Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ')}\n`;
-                } else if (key !== 'terms') {
-                    message += `${key}: ${value}\n`;
-                }
-            });
-           
-            const subject = encodeURIComponent('Mudi SACCO Application Form');
-            window.location.href = `mailto:mayendajabulani@gmail.com?subject=${subject}&body=${encodeURIComponent(message)}`;
+            const formData =            window.location.href = `mailto:mayendajabulani@gmail.com?subject=${subject}&body=${encodeURIComponent(message)}`;
         });
        
         // Copy to Clipboard
@@ -2822,6 +2935,7 @@
         const galleryItems = document.querySelectorAll('.gallery-item');
         const imageModal = document.getElementById('imageModal');
         const zoomedImage = document.getElementById('zoomedImage');
+        const closeModal = document.querySelector('#imageModal .close-modal');
        
         galleryItems.forEach(item => {
             item.addEventListener('click', () => {
@@ -2833,12 +2947,25 @@
                 }, 10);
             });
         });
+       
+        closeModal.addEventListener('click', () => {
+            imageModal.style.display = 'none';
+            imageModal.classList.remove('visible');
+        });
+       
+        window.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                imageModal.style.display = 'none';
+                imageModal.classList.remove('visible');
+            }
+        });
     }
     // News Story Modal
     function initNewsStories() {
         const newsCards = document.querySelectorAll('.news-card');
         const newsModal = document.getElementById('newsModal');
         const newsStory = document.getElementById('newsStory');
+        const closeModal = document.querySelector('#newsModal .close-modal');
        
         // Placeholder stories (extend with real content as needed)
         const stories = {
@@ -2881,6 +3008,18 @@
                 newsModal.style.display = 'block';
                 newsModal.querySelector('.modal-content').classList.add('animate-modalFadeIn');
             });
+        });
+       
+        closeModal.addEventListener('click', () => {
+            newsModal.style.display = 'none';
+            newsModal.querySelector('.modal-content').classList.remove('animate-modalFadeIn');
+        });
+       
+        window.addEventListener('click', (e) => {
+            if (e.target === newsModal) {
+                newsModal.style.display = 'none';
+                newsModal.querySelector('.modal-content').classList.remove('animate-modalFadeIn');
+            }
         });
     }
     // Initialize all
