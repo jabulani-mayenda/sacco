@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
     <style>
         :root {
             --primary-blue: #1a5276;
@@ -2049,6 +2050,17 @@
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
+                    <div class="profile-card animate-fadeIn">
+                    <img class="profile-img" src="images/Ronald Chilumpha, BOD Chairperson.jpeg" alt="Michael Johnson">
+                    <h3>Ronald Chilumpha</h3>
+                    <p class="position">BOD Chairperson</p>
+                    <p class="bio">.</p>
+                    <div class="social-links-profile">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2092,6 +2104,19 @@
                 <div class="form-group">
                     <label for="employer">Employer</label>
                     <input type="text" id="employer" name="employer">
+                </div>
+               
+                <div class="form-group">
+                    <label for="branch">Select Branch *</label>
+                    <select id="branch" name="branch" required aria-required="true">
+                        <option value="">Select Branch</option>
+                        <option value="Blantyre (Main)">Blantyre (Main)</option>
+                        <option value="Lilongwe (Kanengo)">Lilongwe (Kanengo)</option>
+                        <option value="Mzuzu">Mzuzu</option>
+                        <option value="Zomba">Zomba</option>
+                        <option value="Kasinthula (Chikwawa)">Kasinthula (Chikwawa)</option>
+                        <option value="Nsanje">Nsanje</option>
+                    </select>
                 </div>
                
                 <div class="form-group">
@@ -2221,6 +2246,21 @@
                         <div class="form-field">
                             <label for="emailLoan">Email</label>
                             <input type="email" id="emailLoan" name="emailLoan">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="branchLoan">Select Branch *</label>
+                            <select id="branchLoan" name="branchLoan" required aria-required="true">
+                                <option value="">Select Branch</option>
+                                <option value="Blantyre (Main)">Blantyre (Main)</option>
+                                <option value="Lilongwe (Kanengo)">Lilongwe (Kanengo)</option>
+                                <option value="Mzuzu">Mzuzu</option>
+                                <option value="Zomba">Zomba</option>
+                                <option value="Kasinthula (Chikwawa)">Kasinthula (Chikwawa)</option>
+                                <option value="Nsanje">Nsanje</option>
+                            </select>
                         </div>
                     </div>
                    
@@ -2409,7 +2449,7 @@
                     <h3>Contact Info</h3>
                     <p><i class="fas fa-map-marker-alt"></i> Main Branch: Blantyre, Malawi</p>
                     <p><i class="fas fa-phone"></i> 4307</p>
-                    <p><i class="fas fa-envelope"></i> </p>
+                    <p><i class="fas fa-envelope"></i> wphiri@mudisaccomw.com</p>
                    
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -2438,6 +2478,11 @@
     
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+    // Initialize EmailJS
+    (function() {
+        emailjs.init("RdQzlxDQQ_VShQTNM");
+    })();
+
     // Initialize map
     function initMap() {
         const map = L.map('map').setView([-13.9626, 33.7741], 7); // Center on Malawi
@@ -2557,6 +2602,14 @@
     function initForms() {
         const applicationForm = document.getElementById('applicationForm');
         const loanApplicationForm = document.getElementById('loanApplicationForm');
+        let currentServiceType = '';
+       
+        // Set service type when opening modal
+        document.querySelectorAll('.apply-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                currentServiceType = button.getAttribute('data-service');
+            });
+        });
        
         function validateForm(formId) {
             const form = document.getElementById(formId);
@@ -2602,7 +2655,21 @@
         document.getElementById('submitEmail').addEventListener('click', function() {
             if (!validateForm('applicationForm')) return;
            
-            const formData =            window.location.href = `mailto:mayendajabulani@gmail.com?subject=${subject}&body=${encodeURIComponent(message)}`;
+            const formData = new FormData(applicationForm);
+            let message = 'Application Form Submission\n\n';
+            formData.forEach((value, key) => {
+                if (key === 'services') {
+                    message += `Services: ${Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value).join(', ')}\n`;
+                } else if (key !== 'terms') {
+                    message += `${key}: ${value}\n`;
+                }
+            });
+           
+            // Add service type to the message
+            message += `Service Type: ${currentServiceType}\n`;
+           
+            const subject = encodeURIComponent('Mudi SACCO Application Form');
+            window.location.href = `mailto:wphiri@mudisaccomw.com?subject=${subject}&body=${encodeURIComponent(message)}`;
         });
        
         // Copy to Clipboard
@@ -2618,6 +2685,9 @@
                     message += `${key}: ${value}\n`;
                 }
             });
+           
+            // Add service type to the message
+            message += `Service Type: ${currentServiceType}\n`;
            
             navigator.clipboard.writeText(message).then(() => {
                 alert('Form data copied to clipboard!');
@@ -2651,6 +2721,9 @@
                 }
             });
            
+            // Add service type
+            doc.text(`Service Type: ${currentServiceType}`, 20, y);
+           
             doc.save('Mudi_SACCO_Application.pdf');
         });
        
@@ -2673,6 +2746,7 @@
                 'Email Address: ___________________________',
                 'Postal Address: ___________________________',
                 'Employer: ___________________________',
+                'Branch: ___________________________',
                 'Services Applied For: ___________________________',
                 'Terms and Conditions: [ ] I agree'
             ];
@@ -2716,7 +2790,7 @@
             });
            
             const subject = encodeURIComponent('Mudi SACCO Loan Application');
-            window.location.href = `mailto:mayendajabulani@gmail.com?subject=${subject}&body=${encodeURIComponent(message)}`;
+            window.location.href = `mailto:wphiri@mudisaccomw.com?subject=${subject}&body=${encodeURIComponent(message)}`;
         });
        
         // Loan Copy to Clipboard
@@ -2787,6 +2861,7 @@
                 'District: ___________________________',
                 'Phone Number: ___________________________',
                 'Email: ___________________________',
+                'Branch: ___________________________',
                 "Employer's Name: ___________________________",
                 'Job Title: ___________________________',
                 'Gross Salary: ___________________________',
@@ -2809,6 +2884,56 @@
            
             doc.save('Mudi_SACCO_Blank_Loan_Application.pdf');
         });
+        
+        // EmailJS Integration
+        function sendEmailJS(formId, templateId) {
+            if (!validateForm(formId)) return;
+            
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+            const data = {};
+            
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Add service type for application form
+            if (formId === 'applicationForm') {
+                data['serviceType'] = currentServiceType;
+            }
+            
+            emailjs.send("service_dmhrqgy", templateId, data)
+                .then(function(response) {
+                    alert('Form submitted successfully! We will contact you soon.');
+                    form.reset();
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                }, function(error) {
+                    alert('Failed to submit form. Please try again or contact us directly.');
+                    console.error('EmailJS error:', error);
+                });
+        }
+        
+        // Add EmailJS submit buttons
+        const emailJSSubmitBtn = document.createElement('button');
+        emailJSSubmitBtn.type = 'button';
+        emailJSSubmitBtn.className = 'form-btn form-btn-secondary';
+        emailJSSubmitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit via EmailJS';
+        emailJSSubmitBtn.addEventListener('click', function() {
+            sendEmailJS('applicationForm', 'template_abcd123');
+        });
+        
+        const emailJSLoanSubmitBtn = document.createElement('button');
+        emailJSLoanSubmitBtn.type = 'button';
+        emailJSLoanSubmitBtn.className = 'form-btn form-btn-secondary';
+        emailJSLoanSubmitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit via EmailJS';
+        emailJSLoanSubmitBtn.addEventListener('click', function() {
+            sendEmailJS('loanApplicationForm', 'template_loan_application');
+        });
+        
+        document.querySelector('#applicationForm .form-buttons').appendChild(emailJSSubmitBtn);
+        document.querySelector('#loanApplicationForm .form-buttons').appendChild(emailJSLoanSubmitBtn);
     }
     // Loan Calculator
     function initLoanCalculator() {
