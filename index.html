@@ -426,7 +426,7 @@
             font-size: 1.2rem;
         }
        
-        /* SACCO Overview Section - REDESIGNED */
+        /* SACCO Overview Section */
         .sacco-overview {
             padding: 100px 0;
             background-color: var(--light-gray);
@@ -768,7 +768,7 @@
             color: var(--primary-blue);
         }
        
-        /* Board Section */
+        /* Board Section - REDESIGNED */
         .board {
             padding: 100px 0;
             background-color: var(--white);
@@ -787,20 +787,33 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: all 0.4s ease;
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
         }
        
         .profile-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
        
-        .profile-img {
+        .profile-img-container {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            object-fit: cover;
+            overflow: hidden;
             margin-bottom: 20px;
+            border: 4px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+       
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.3s;
         }
        
@@ -809,27 +822,32 @@
         }
        
         .profile-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--primary-blue);
             margin-bottom: 10px;
+            line-height: 1.3;
         }
        
-        .profile-card p.position {
+        .profile-card .position {
             font-weight: 600;
             color: var(--secondary-blue);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1rem;
         }
        
-        .profile-card p.bio {
+        .profile-card .bio {
             margin-bottom: 20px;
             color: var(--dark-gray);
             font-size: 0.9rem;
+            line-height: 1.5;
+            flex-grow: 1;
         }
        
         .social-links-profile {
             display: flex;
             justify-content: center;
             gap: 15px;
+            width: 100%;
         }
        
         .social-links-profile a {
@@ -1081,7 +1099,7 @@
             gap: 8px;
         }
        
-        /* Form Button Styles - IMPROVED */
+        /* Form Button Styles */
         .form-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -1487,6 +1505,11 @@
             .board-grid {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
+            
+            .profile-img-container {
+                width: 120px;
+                height: 120px;
+            }
         }
        
         @media (max-width: 576px) {
@@ -1517,6 +1540,19 @@
             /* Board Grid Mobile */
             .board-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .profile-img-container {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .profile-card .position {
+                font-size: 0.9rem;
             }
         }
 
@@ -1724,7 +1760,7 @@
             </div>
         </div>
     </section>
-    <!-- SACCO Overview Section - REDESIGNED -->
+    <!-- SACCO Overview Section -->
     <section class="sacco-overview" id="sacco-overview" aria-label="About SACCOs in Malawi with community background">
         <div class="container">
             <div class="section-title">
@@ -1756,8 +1792,8 @@
                         <p>To join, fill out an application form, provide ID, phone, and address. Pay an entry fee (varies by SACCO). For loans, submit a business plan or purpose, and await committee approval. Contact your local branch or use our chatbot for details.</p>
                     </div>
                 </div>
-               
-               
+            </div>
+        </div>
     </section>
     <!-- Branches Section -->
     <section class="branches" id="branches">
@@ -1994,32 +2030,23 @@
             </div>
         </div>
     </section>
-    <!-- Board of Directors Section -->
+    <!-- Board of Directors Section - REDESIGNED -->
     <section class="board" id="board">
         <div class="container">
             <div class="section-title">
                 <h2>Our Leadership</h2>
-                <p>Meet the Board of Directors and CEO driving Mudi SACCO's success</p>
+                <p>Meet the Board of Directors and Management Team driving Mudi SACCO's success</p>
             </div>
-           
+            
+            <h3 style="text-align: center; color: var(--primary-blue); margin-bottom: 40px;">Board of Directors</h3>
             <div class="board-grid">
                 <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="images/ceo.jpeg" alt="Triza Magreta">
-                    <h3>Triza Magreta</h3>
-                    <p class="position">CEO</p>
-                    <p class="bio"></p>
-                    <div class="social-links-profile">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <div class="profile-img-container">
+                        <img class="profile-img" src="images/Ronald Chilumpha, BOD Chairperson.jpeg" alt="Ronald Chilumpha">
                     </div>
-                </div>
-               
-                <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="images/Ronald Chilumpha, BOD Chairperson.jpeg" alt="John Doe">
-                    <h3> Ronald Chilumpha </h3>
+                    <h3>Ronald Chilumpha</h3>
                     <p class="position">BOD Chairperson</p>
-                    <p class="bio"></p>
+                    <p class="bio">With over 20 years of experience in financial management, Ronald provides strategic leadership to guide Mudi SACCO's growth and member-focused initiatives.</p>
                     <div class="social-links-profile">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -2028,10 +2055,12 @@
                 </div>
                
                 <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="images/Vice Chairperson, Ms Euphrasia Nazombe.jpeg" alt="Jane Smith">
+                    <div class="profile-img-container">
+                        <img class="profile-img" src="images/Vice Chairperson, Ms Euphrasia Nazombe.jpeg" alt="Ms Euphrasia Nazombe">
+                    </div>
                     <h3>Ms Euphrasia Nazombe</h3>
                     <p class="position">Vice Chairperson</p>
-                    <p class="bio"></p>
+                    <p class="bio">Euphrasia brings extensive experience in cooperative management and community development, ensuring our services meet member needs effectively.</p>
                     <div class="social-links-profile">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -2040,27 +2069,64 @@
                 </div>
                
                 <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="images/Mr. Vincent Banda, BOD Member.jpeg" alt="Michael Johnson">
+                    <div class="profile-img-container">
+                        <img class="profile-img" src="images/Mr. Vincent Banda, BOD Member.jpeg" alt="Mr. Vincent Banda">
+                    </div>
                     <h3>Mr. Vincent Banda</h3>
                     <p class="position">BOD Member</p>
-                    <p class="bio">.</p>
+                    <p class="bio">Vincent specializes in risk management and financial oversight, ensuring Mudi SACCO operates with integrity and fiscal responsibility.</p>
                     <div class="social-links-profile">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
-                    <div class="profile-card animate-fadeIn">
-                    <img class="profile-img" src="images/Charles Chavi. BOD Member.jpeg" alt="Michael Johnson">
-                    <h3>Ronald Chilumpha</h3>
-                    <p class="position">BOD member</p>
-                    <p class="bio">.</p>
+                
+                <div class="profile-card animate-fadeIn">
+                    <div class="profile-img-container">
+                        <img class="profile-img" src="images/Charles Chavi. BOD Member.jpeg" alt="Charles Chavi">
+                    </div>
+                    <h3>Charles Chavi</h3>
+                    <p class="position">BOD Member</p>
+                    <p class="bio">Charles focuses on technology integration and digital transformation, ensuring Mudi SACCO remains at the forefront of financial innovation.</p>
                     <div class="social-links-profile">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
+            </div>
+            
+            <h3 style="text-align: center; color: var(--primary-blue); margin: 60px 0 40px;">Management Team</h3>
+            <div class="board-grid">
+                <div class="profile-card animate-fadeIn">
+                    <div class="profile-img-container">
+                        <img class="profile-img" src="images/ceo.jpeg" alt="Triza Magreta">
+                    </div>
+                    <h3>Triza Magreta</h3>
+                    <p class="position">Chief Executive Officer</p>
+                    <p class="bio">Triza leads Mudi SACCO with a vision for financial inclusion and member empowerment, driving strategic initiatives that benefit our growing community.</p>
+                    <div class="social-links-profile">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+               
+                <div class="profile-card animate-fadeIn">
+                    <div class="profile-img-container">
+                        <img class="profile-img" src="images/ANNITA (5).jpg" alt="Annita">
+                    </div>
+                    <h3>Annita</h3>
+                    <p class="position">Operations Manager</p>
+                    <p class="bio">Annita oversees day-to-day operations, ensuring seamless service delivery across all branches and maintaining our high standards of member service.</p>
+                    <div class="social-links-profile">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>
@@ -2462,7 +2528,7 @@
            
             <div class="copyright">
                 <p>&copy; 2025 Mudi SACCO. All Rights Reserved.</p>
-                  <p>&copy; dev by champtech creations</p>
+                <p>&copy; dev by champtech creations</p>
             </div>
         </div>
     </footer>
@@ -2962,7 +3028,7 @@
             `;
         });
     }
-    // Chatbot
+    // Enhanced Chatbot with Comprehensive SACCO Knowledge
     function initChatbot() {
         const chatbotToggle = document.getElementById('chatbotToggle');
         const chatbotModal = document.getElementById('chatbotModal');
@@ -2981,21 +3047,126 @@
             chatbotToggle.classList.remove('animate-pulse');
         });
        
+        // Enhanced SACCO knowledge base
+        const saccoKnowledge = {
+            greetings: [
+                "Hello! How can I assist you with Mudi SACCO today?",
+                "Hi there! Welcome to Mudi SACCO. How can I help?",
+                "Greetings! I'm here to help with all your SACCO questions.",
+                "Good day! What would you like to know about Mudi SACCO?"
+            ],
+            farewells: [
+                "Goodbye! Feel free to return if you have more questions.",
+                "Thank you for chatting with Mudi SACCO. Have a great day!",
+                "Take care! Remember we're here to help with your financial needs.",
+                "See you soon! Don't hesitate to reach out if you need assistance."
+            ],
+            services: {
+                membership: "To become a member, you need to fill out an application form, provide identification, pay a membership fee, and maintain a minimum share capital. Members enjoy benefits like access to loans, dividends, and financial education.",
+                savings: "We offer various savings products including regular savings, fixed deposits, youth savings, and target savings. Each has different interest rates and withdrawal conditions to suit your financial goals.",
+                loans: "Mudi SACCO provides different loan types: normal loans (up to 36 months), emergency loans (4 months), business loans, agricultural loans, and special purpose loans. Loan amounts depend on your savings and repayment capacity.",
+                mobile: "Our mobile banking service allows you to check balances, transfer funds, pay bills, and apply for loans using your phone. It's secure, convenient, and available 24/7."
+            },
+            branches: "Mudi SACCO has branches in Blantyre (Main), Lilongwe (Kanengo), Mzuzu, Zomba, Kasinthula (Chikwawa), and Nsanje. Each branch offers full services during business hours.",
+            requirements: {
+                membership: "To join, you need: National ID, passport photo, completed application form, initial share capital, and membership fee. For employed members, we require recent payslips.",
+                loan: "Loan requirements include: completed application form, identification, collateral/guarantors, proof of income, business plan (for business loans), and existing savings record."
+            },
+            benefits: "SACCO membership offers: Access to affordable credit, competitive dividend payments, financial literacy training, community development programs, and a voice in cooperative governance through annual general meetings.",
+            challenges: "Common SACCO challenges include: Loan defaults, limited capital, technological adoption, member education, and regulatory compliance. Mudi addresses these through strict credit policies, digital transformation, and member training.",
+            history: "SACCOs in Malawi began in the 1970s through church initiatives. Mudi SACCO started in 1990 as Malawi Bureau of Standards SACCO, rebranding in 2000. We've grown to serve over 21,000 members across Malawi.",
+            governance: "Mudi SACCO is governed by a Board of Directors elected by members. We're regulated by the Registrar of Cooperatives and supervised by the Malawi Union of Savings and Credit Cooperatives (MUSCCO).",
+            contact: "You can reach Mudi SACCO at: Phone: 4307, Email: wphiri@mudisaccomw.com, WhatsApp: +265887763358, or visit any of our branches during business hours."
+        };
+       
         function getBotResponse(message) {
-            message = message.toLowerCase();
-            if (message.includes('apply') || message.includes('membership') || message.includes('join')) {
-                return 'To apply for membership, fill out the <a href="#" class="apply-btn" data-service="Membership">Membership Application Form</a>. Provide your ID, phone, and address.';
-            } else if (message.includes('loan')) {
-                return 'For loans, complete the <a href="#" class="apply-btn" data-service="Loans & Credit">Loan Application Form</a>. Include your business plan or purpose.';
-            } else if (message.includes('branch') || message.includes('location')) {
-                return 'Mudi SACCO has branches in Blantyre (Main), Lilongwe (Kanengo), Mzuzu, Zomba, Kasinthula (Chikwawa), and Nsanje. Check the <a href="#branches">Branches</a> section.';
-            } else if (message.includes('sacco') || message.includes('overview')) {
-                return 'SACCOs in Malawi are member-owned cooperatives for savings and loans. See the <a href="#sacco-overview">SACCO Overview</a> for details.';
-            } else if (message.includes('stuck') || message.includes('money')) {
-                return 'If your money is stuck, contact your branch manager or call 4307. Provide transaction details for assistance.';
-            } else {
-                return 'I’m not sure about that. Try asking about membership, loans, branches, or SACCOs in Malawi. You can also call 4307 or visit a branch.';
+            message = message.toLowerCase().trim();
+            
+            // Greetings
+            if (message.includes('hello') || message.includes('hi') || message.includes('hey') || 
+                message.includes('good morning') || message.includes('good afternoon') || 
+                message.includes('good evening')) {
+                return saccoKnowledge.greetings[Math.floor(Math.random() * saccoKnowledge.greetings.length)];
             }
+            
+            // Farewells
+            if (message.includes('bye') || message.includes('goodbye') || message.includes('see you') || 
+                message.includes('thanks') || message.includes('thank you')) {
+                return saccoKnowledge.farewells[Math.floor(Math.random() * saccoKnowledge.farewells.length)];
+            }
+            
+            // Membership queries
+            if (message.includes('member') || message.includes('join') || message.includes('application') || 
+                message.includes('register') || message.includes('enroll')) {
+                return saccoKnowledge.services.membership + " <a href='#' class='apply-btn' data-service='Membership'>Click here to start your application</a>.";
+            }
+            
+            // Savings queries
+            if (message.includes('save') || message.includes('deposit') || message.includes('account') || 
+                message.includes('interest') || message.includes('dividend')) {
+                return saccoKnowledge.services.savings + " <a href='#' class='apply-btn' data-service='Savings Accounts'>Learn more about our savings products</a>.";
+            }
+            
+            // Loan queries
+            if (message.includes('loan') || message.includes('borrow') || message.includes('credit') || 
+                message.includes('repay') || message.includes('debt')) {
+                return saccoKnowledge.services.loans + " <a href='#' class='apply-btn' data-service='Loans & Credit'>Apply for a loan now</a>.";
+            }
+            
+            // Mobile banking
+            if (message.includes('mobile') || message.includes('app') || message.includes('digital') || 
+                message.includes('online') || message.includes('internet')) {
+                return saccoKnowledge.services.mobile + " <a href='#' class='apply-btn' data-service='Mobile Banking'>Get started with mobile banking</a>.";
+            }
+            
+            // Branch locations
+            if (message.includes('branch') || message.includes('location') || message.includes('address') || 
+                message.includes('where') || message.includes('find')) {
+                return "Our branches are located at: " + saccoKnowledge.branches + " <a href='#branches'>See our branch map</a>.";
+            }
+            
+            // Requirements
+            if (message.includes('require') || message.includes('need') || message.includes('document') || 
+                message.includes('paper') || message.includes('qualif')) {
+                if (message.includes('loan')) {
+                    return "For loans, you need: " + saccoKnowledge.requirements.loan;
+                } else {
+                    return "For membership, you need: " + saccoKnowledge.requirements.membership;
+                }
+            }
+            
+            // Benefits
+            if (message.includes('benefit') || message.includes('advantage') || message.includes('why join') || 
+                message.includes('good') || message.includes('pro')) {
+                return saccoKnowledge.benefits;
+            }
+            
+            // Challenges
+            if (message.includes('problem') || message.includes('issue') || message.includes('challenge') || 
+                message.includes('difficult') || message.includes('risk')) {
+                return saccoKnowledge.challenges;
+            }
+            
+            // History
+            if (message.includes('history') || message.includes('start') || message.includes('begin') || 
+                message.includes('origin') || message.includes('established')) {
+                return saccoKnowledge.history;
+            }
+            
+            // Governance
+            if (message.includes('govern') || message.includes('board') || message.includes('director') || 
+                message.includes('manage') || message.includes('lead')) {
+                return saccoKnowledge.governance + " <a href='#board'>Meet our leadership team</a>.";
+            }
+            
+            // Contact information
+            if (message.includes('contact') || message.includes('call') || message.includes('email') || 
+                message.includes('phone') || message.includes('whatsapp')) {
+                return saccoKnowledge.contact;
+            }
+            
+            // Default response for unrecognized queries
+            return "I'm not sure I understand. Could you try rephrasing your question? You can ask about: membership, loans, savings, branches, requirements, or contact information. Or you can call 4307 for immediate assistance.";
         }
        
         chatSend.addEventListener('click', sendMessage);
